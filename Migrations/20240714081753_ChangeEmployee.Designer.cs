@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Store_Management.Data;
 
@@ -11,9 +12,11 @@ using Store_Management.Data;
 namespace Store_Management.Migrations
 {
     [DbContext(typeof(StoreDbContext))]
-    partial class StoreDbContextModelSnapshot : ModelSnapshot
+    [Migration("20240714081753_ChangeEmployee")]
+    partial class ChangeEmployee
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -58,7 +61,7 @@ namespace Store_Management.Migrations
                         {
                             Id = 1,
                             CreatedBy = 1,
-                            CreatedDate = new DateTime(2024, 7, 14, 15, 20, 3, 253, DateTimeKind.Local).AddTicks(3642),
+                            CreatedDate = new DateTime(2024, 7, 14, 15, 17, 52, 970, DateTimeKind.Local).AddTicks(6637),
                             IsActive = false,
                             Name = "Le Trung Ha"
                         });
@@ -100,7 +103,7 @@ namespace Store_Management.Migrations
                         {
                             Id = 1,
                             CreatedBy = 1,
-                            CreatedDate = new DateTime(2024, 7, 14, 15, 20, 3, 253, DateTimeKind.Local).AddTicks(3628),
+                            CreatedDate = new DateTime(2024, 7, 14, 15, 17, 52, 970, DateTimeKind.Local).AddTicks(6621),
                             IsActive = true,
                             Name = "LTCompany"
                         });
@@ -246,9 +249,6 @@ namespace Store_Management.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<string>("ProfileImage")
-                        .HasColumnType("nvarchar(max)");
-
                     b.Property<int>("RoleId")
                         .HasColumnType("int");
 
@@ -270,7 +270,7 @@ namespace Store_Management.Migrations
                             Age = 30,
                             CitizenId = "0049393859",
                             CreatedBy = 1,
-                            CreatedDate = new DateTime(2024, 7, 14, 15, 20, 3, 253, DateTimeKind.Local).AddTicks(3542),
+                            CreatedDate = new DateTime(2024, 7, 14, 15, 17, 52, 970, DateTimeKind.Local).AddTicks(6548),
                             Email = "admin@gmail.com",
                             FullName = "Le Trung Ha",
                             IsActive = true,
@@ -409,7 +409,7 @@ namespace Store_Management.Migrations
                         {
                             Id = 1,
                             CreatedBy = 1,
-                            CreatedDate = new DateTime(2024, 7, 14, 15, 20, 3, 253, DateTimeKind.Local).AddTicks(3657),
+                            CreatedDate = new DateTime(2024, 7, 14, 15, 17, 52, 970, DateTimeKind.Local).AddTicks(6649),
                             IsActive = false,
                             Name = "NXB Kim Dong"
                         });
@@ -527,7 +527,7 @@ namespace Store_Management.Migrations
                             Id = 1,
                             CategoryId = 1,
                             CreatedBy = 1,
-                            CreatedDate = new DateTime(2024, 7, 14, 15, 20, 3, 253, DateTimeKind.Local).AddTicks(3683),
+                            CreatedDate = new DateTime(2024, 7, 14, 15, 17, 52, 970, DateTimeKind.Local).AddTicks(6677),
                             Description = "Classic novel by F. Scott Fitzgerald",
                             ImageUrl = "the_great_gatsby.jpg",
                             IsActive = true,
@@ -543,7 +543,7 @@ namespace Store_Management.Migrations
                             Id = 2,
                             CategoryId = 1,
                             CreatedBy = 1,
-                            CreatedDate = new DateTime(2024, 7, 14, 15, 20, 3, 253, DateTimeKind.Local).AddTicks(3686),
+                            CreatedDate = new DateTime(2024, 7, 14, 15, 17, 52, 970, DateTimeKind.Local).AddTicks(6680),
                             Description = "Dystopian novel by George Orwell",
                             ImageUrl = "1984.jpg",
                             IsActive = true,
@@ -573,7 +573,7 @@ namespace Store_Management.Migrations
                             Id = 3,
                             CategoryId = 1,
                             CreatedBy = 1,
-                            CreatedDate = new DateTime(2024, 7, 14, 15, 20, 3, 253, DateTimeKind.Local).AddTicks(3702),
+                            CreatedDate = new DateTime(2024, 7, 14, 15, 17, 52, 970, DateTimeKind.Local).AddTicks(6694),
                             Description = "Novel by Harper Lee",
                             ImageUrl = "to_kill_a_mockingbird.jpg",
                             IsActive = true,
@@ -586,7 +586,7 @@ namespace Store_Management.Migrations
                             Id = 4,
                             CategoryId = 2,
                             CreatedBy = 1,
-                            CreatedDate = new DateTime(2024, 7, 14, 15, 20, 3, 253, DateTimeKind.Local).AddTicks(3707),
+                            CreatedDate = new DateTime(2024, 7, 14, 15, 17, 52, 970, DateTimeKind.Local).AddTicks(6696),
                             Description = "100-page A4 notebook",
                             ImageUrl = "a4_notebook.jpg",
                             IsActive = true,
@@ -599,7 +599,7 @@ namespace Store_Management.Migrations
                             Id = 5,
                             CategoryId = 2,
                             CreatedBy = 1,
-                            CreatedDate = new DateTime(2024, 7, 14, 15, 20, 3, 253, DateTimeKind.Local).AddTicks(3709),
+                            CreatedDate = new DateTime(2024, 7, 14, 15, 17, 52, 970, DateTimeKind.Local).AddTicks(6700),
                             Description = "Blue ballpoint pen",
                             ImageUrl = "ballpoint_pen.jpg",
                             IsActive = true,
@@ -612,7 +612,7 @@ namespace Store_Management.Migrations
                             Id = 6,
                             CategoryId = 2,
                             CreatedBy = 1,
-                            CreatedDate = new DateTime(2024, 7, 14, 15, 20, 3, 253, DateTimeKind.Local).AddTicks(3712),
+                            CreatedDate = new DateTime(2024, 7, 14, 15, 17, 52, 970, DateTimeKind.Local).AddTicks(6702),
                             Description = "Set of 5 highlighters",
                             ImageUrl = "highlighter_set.jpg",
                             IsActive = true,
@@ -625,7 +625,7 @@ namespace Store_Management.Migrations
                             Id = 7,
                             CategoryId = 2,
                             CreatedBy = 1,
-                            CreatedDate = new DateTime(2024, 7, 14, 15, 20, 3, 253, DateTimeKind.Local).AddTicks(3713),
+                            CreatedDate = new DateTime(2024, 7, 14, 15, 17, 52, 970, DateTimeKind.Local).AddTicks(6705),
                             Description = "Pack of sticky notes",
                             ImageUrl = "sticky_notes.jpg",
                             IsActive = true,
@@ -638,7 +638,7 @@ namespace Store_Management.Migrations
                             Id = 8,
                             CategoryId = 3,
                             CreatedBy = 1,
-                            CreatedDate = new DateTime(2024, 7, 14, 15, 20, 3, 253, DateTimeKind.Local).AddTicks(3716),
+                            CreatedDate = new DateTime(2024, 7, 14, 15, 17, 52, 970, DateTimeKind.Local).AddTicks(6707),
                             Description = "Office desk organizer",
                             ImageUrl = "desk_organizer.jpg",
                             IsActive = true,
@@ -651,7 +651,7 @@ namespace Store_Management.Migrations
                             Id = 9,
                             CategoryId = 3,
                             CreatedBy = 1,
-                            CreatedDate = new DateTime(2024, 7, 14, 15, 20, 3, 253, DateTimeKind.Local).AddTicks(3717),
+                            CreatedDate = new DateTime(2024, 7, 14, 15, 17, 52, 970, DateTimeKind.Local).AddTicks(6709),
                             Description = "Set of 10 file folders",
                             ImageUrl = "file_folders.jpg",
                             IsActive = true,
@@ -664,7 +664,7 @@ namespace Store_Management.Migrations
                             Id = 10,
                             CategoryId = 3,
                             CreatedBy = 1,
-                            CreatedDate = new DateTime(2024, 7, 14, 15, 20, 3, 253, DateTimeKind.Local).AddTicks(3720),
+                            CreatedDate = new DateTime(2024, 7, 14, 15, 17, 52, 970, DateTimeKind.Local).AddTicks(6710),
                             Description = "Ream of A4 printer paper",
                             ImageUrl = "printer_paper.jpg",
                             IsActive = true,

@@ -7,18 +7,40 @@
              xmlns:productVM="clr-namespace:Store_Management.ViewModels.ProductVM"
              mc:Ignorable="d" 
              d:Background="White"
-             d:DesignHeight="450" d:DesignWidth="800"
+             d:DesignHeight="450" d:DesignWidth="1000"
              d:DataContext="{d:DesignInstance Type=productVM:ListProductVM, IsDesignTimeCreatable=False}"
+               xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
              >
-    <Grid>
+    <Grid Margin="0, 15,0,0">
         <Grid.RowDefinitions>
-            <RowDefinition/>
+            <RowDefinition Height="auto"/>
             <RowDefinition Height="auto"/>
             <RowDefinition Height="auto"/>
         </Grid.RowDefinitions>
-        <DataGrid IsReadOnly="True" SelectedItem="{Binding SelectedProduct, Mode=OneWayToSource}" AutoGenerateColumns="False" ItemsSource="{Binding Products}">
-            <DataGrid.Columns>
 
+        <DockPanel Margin="20,0,20,0">
+
+            <StackPanel DockPanel.Dock="Left" Orientation="Horizontal">
+                <TextBox Style="{StaticResource MaterialDesignTextBox}"
+                     Width="500"
+                     Margin="0 0 10 0"
+                     materialDesign:HintAssist.Hint="Search"
+                     VerticalAlignment="Center"/>
+                <Button Style="{StaticResource MaterialDesignRaisedButton}"
+                    Content="Search"
+                    Width="100"
+                    VerticalAlignment="Center"/>
+            </StackPanel>
+
+            <StackPanel  DockPanel.Dock="Right" HorizontalAlignment="Right"  Orientation="Horizontal" Grid.Column="1">
+                <Button  Command="{Binding ShowProductDetailsCommand}">View Details</Button>
+                <Button  Margin="20,0,0,0" Command="{Binding GoToAddBookCmd}">Add book</Button>
+            </StackPanel>
+        </DockPanel>
+
+
+        <DataGrid Margin="0, 20,0,0" Grid.Row="1" IsReadOnly="True" SelectedItem="{Binding SelectedProduct, Mode=OneWayToSource}" AutoGenerateColumns="False" ItemsSource="{Binding Products}">
+            <DataGrid.Columns>
                 <DataGridTextColumn Header="Id" Binding="{Binding Path=Id}"/>
                 <DataGridTextColumn Header="Product Name" Width="200" Binding="{Binding Path=Name}"/>
                 <DataGridTextColumn Header="Category" Width="100" Binding="{Binding Path=Category.Name}"/>
@@ -26,8 +48,7 @@
                 <DataGridTextColumn Header="Added date" Binding="{Binding Path=CreatedDate}"/>
             </DataGrid.Columns>
         </DataGrid>
-        <Button Command="{Binding ShowProductDetailsCommand}" Grid.Row="1">View Details</Button>
-        <Button Command="{Binding GoToAddBookCmd}" Grid.Row="2">Add book</Button>
-        
+
+
     </Grid>
 </UserControl>

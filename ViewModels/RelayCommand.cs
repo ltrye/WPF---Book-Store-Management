@@ -26,7 +26,7 @@ namespace Store_Management.ViewModels
         }
 
 
-
+        public static RelayCommand From(Action<object?> execute) => new RelayCommand(execute);
         //Constructors
         public RelayCommand(Action<object?> execute) : this(execute, null!) { }
         public RelayCommand(Action<object?> execute, Predicate<object?> canExecute)

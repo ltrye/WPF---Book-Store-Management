@@ -40,7 +40,7 @@ namespace Store_Management.Data
             if (optionsBuilder.IsConfigured) return;
             var configuration = new ConfigurationBuilder()
                .SetBasePath(Directory.GetCurrentDirectory())
-               .AddJsonFile("appsettings.json", optional:true)
+               .AddJsonFile("appsettings.json", optional: true)
                .Build();
             optionsBuilder.UseSqlServer(configuration.GetConnectionString("StoreDbContext"));
             optionsBuilder.LogTo((msg) => Debug.WriteLine(msg));
@@ -60,6 +60,23 @@ namespace Store_Management.Data
             modelBuilder.Entity<Stationery>()
                 .ToTable("Stationeries");
 
+            modelBuilder.Entity<Employee>()
+                .HasData(
+                    new Employee
+                    {
+                        Id = 1,
+                        FullName = "Le Trung Ha",
+                        RoleId = (int)Employee.Role.ADMIN,
+                        CitizenId = "0049393859",
+                        Age = 30,
+                        CreatedDate = DateTime.Now,
+                        CreatedBy = 1,
+                        IsActive = true,
+                        Email = "admin@gmail.com",
+                        Address = "Ha Noi, Viet Nam",
+                        Password= "AQAAAAEAACcQAAAAELkmiywABvS7CuDMOizvFZAcM0PFm41LpVWfrviktituMRaltQuJab+Nvm4fu84AKQ=="
+                    }
+                );
             modelBuilder.Entity<Brand>()
                 .HasData(
                 new Brand
@@ -76,7 +93,7 @@ namespace Store_Management.Data
                     new Author
                     {
                         Id = 1,
-                        Name ="Le Trung Ha",
+                        Name = "Le Trung Ha",
                         CreatedDate = DateTime.Now,
                         CreatedBy = 1
                     }
@@ -86,17 +103,17 @@ namespace Store_Management.Data
                  new Publisher
                  {
                      Id = 1,
-                     Name="NXB Kim Dong",
-                     CreatedBy =1,
+                     Name = "NXB Kim Dong",
+                     CreatedBy = 1,
                      CreatedDate = DateTime.Now,
                  }
                 );
 
             modelBuilder.Entity<Category>().HasData(
-       new Category { Id = 1, Name = "Books" },
-       new Category { Id = 2, Name = "Stationery" },
-       new Category { Id = 3, Name = "Office Supplies" }
-   );
+                   new Category { Id = 1, Name = "Books" },
+                   new Category { Id = 2, Name = "Stationery" },
+                   new Category { Id = 3, Name = "Office Supplies" }
+               );
 
             modelBuilder.Entity<Book>().HasData(
                    new Book
@@ -115,7 +132,7 @@ namespace Store_Management.Data
                        CreatedBy = 1,
                        CreatedDate = DateTime.Now
 
-                   }, 
+                   },
                    new Book
                    {
                        Id = 2,
@@ -211,7 +228,7 @@ namespace Store_Management.Data
                Price = 12.99m,
                IsActive = true,
                ImageUrl = "desk_organizer.jpg",
-               CreatedBy =1,
+               CreatedBy = 1,
                CreatedDate = DateTime.Now
            },
            new Stationery
@@ -240,7 +257,7 @@ namespace Store_Management.Data
                CreatedBy = 1,
                CreatedDate = DateTime.Now
            });
-  
+
 
         }
     }

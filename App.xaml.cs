@@ -2,6 +2,9 @@
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Store_Management.Data;
+using Store_Management.Utils;
+using Store_Management.ViewModels.EmployeeVM;
+using Store_Management.Views.Employee;
 using System.Configuration;
 using System.Data;
 using System.Diagnostics;
@@ -45,10 +48,11 @@ namespace Store_Management
         }
         protected override void OnStartup(StartupEventArgs e)
         {
+            Navigator.CreateInstance();
+            Navigator.INSTANCE.OpenEmployeeStartWindow();
             
-
-            base.OnStartup(e);
         }
+       
     }
 
 }

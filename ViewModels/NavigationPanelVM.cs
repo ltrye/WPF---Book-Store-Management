@@ -1,4 +1,6 @@
-﻿using Store_Management.ViewModels.ProductVM;
+﻿using Store_Management.Data.Models;
+using Store_Management.Utils;
+using Store_Management.ViewModels.ProductVM;
 using Store_Management.ViewModels.Utils;
 using System;
 using System.Collections.Generic;
@@ -9,37 +11,41 @@ using System.Threading.Tasks;
 
 namespace Store_Management.ViewModels
 {
-    public class NavigationPanelVM : ViewModelBase
+    public class NavigationPanelVM : NavigatableViewModel
     {
 
+        private Employee _currentEmployee;
         public string StoreName { get; set; } = "LTH Book Store";
 
 
         private ObservableCollection<NavigationItem> _navigationItems;
-        private ViewModelBase _currentPage;
 
-        #region Getter, Setter
+        #region Properties
+
+        public Employee CurrentEmployee { get => _currentEmployee; set => SetProperty(ref _currentEmployee, value);}
         public ObservableCollection<NavigationItem> NavigationItems
         {
             get { return _navigationItems; }
             set { _navigationItems = value; OnPropertyChanged(); }
         }
 
-
-        public ViewModelBase CurrentPage
-        {
-            get { return _currentPage; }
-            set { _currentPage = value; OnPropertyChanged(); }
-        }
         #endregion
 
         public NavigationPanelVM()
         {
+            Navigator.INSTANCE.RegisterNavigationViewModel(this);
+
+
             NavigationItems = new ObservableCollection<NavigationItem>
             {
                 new("Home", new HomeVM(), isActive: true),
                 new("Products Management", new ListProductVM())
             };
+
+            //Employee
+            CurrentEmployee = StoreSession.Instance.ActiveEmployee;
+
+            //Inital page
             CurrentPage = new HomeVM();
         }
 

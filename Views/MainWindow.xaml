@@ -4,13 +4,15 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:Store_Management.Views" xmlns:viewmodels="clr-namespace:Store_Management.ViewModels" 
-        d:DataContext="{d:DesignInstance Type=viewmodels:NavigationPanelVM, IsDesignTimeCreatable=True}"
+        d:DataContext="{d:DesignInstance Type=viewmodels:NavigationPanelVM}"
         mc:Ignorable="d"
         Title="MainWindow" Height="450" Width="800"
         MinWidth="800"
+        WindowState="Maximized"
         WindowStartupLocation="CenterScreen"
         xmlns:vm="clr-namespace:Store_Management.ViewModels"
         xmlns:pages="clr-namespace:Store_Management.Views.Product"
+        xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
         >
     <!-- Define resources for styles -->
     <Window.Resources>
@@ -49,7 +51,7 @@
             </Setter>
         </Style>
     </Window.Resources>
-    
+
 
     <!-- Main layout grid -->
     <Grid>
@@ -60,12 +62,41 @@
             <!-- Main content area -->
         </Grid.ColumnDefinitions>
 
+        <Grid.RowDefinitions>
+            <RowDefinition Height="1*"/>
+            <RowDefinition Height="6*"/>
+        </Grid.RowDefinitions>
+        <!-- Header -->
+        <Border Grid.Row="0" Grid.Column="0" Background="#323234">
+            <TextBlock Text="{Binding StoreName}" Foreground="White" VerticalAlignment="Center" Margin="20,0"/>
+        </Border>
+        <DockPanel Grid.Row="0" Grid.Column="1">
+            <!--Employee Info-->
+            <Grid Width="300" HorizontalAlignment="Right" DockPanel.Dock="Right">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition/>
+                    <ColumnDefinition/>
+                    <ColumnDefinition/>
+                </Grid.ColumnDefinitions>
+                <Image Grid.Column="0"
+                       HorizontalAlignment="Center" 
+                       VerticalAlignment="Center"
+                       Source="{Binding CurrentEmployee.ProfileImage}"
+                       />
+                <Label 
+                    HorizontalAlignment="Center" 
+                    VerticalAlignment="Center" 
+                    Content="{Binding CurrentEmployee.FullName}" 
+                    Grid.Column="1"></Label>
+                <materialDesign:PackIcon 
+                    HorizontalAlignment="Center" 
+                    VerticalAlignment="Center" Grid.Column="2" 
+                    Kind="MenuDown" />
+            </Grid>
+        </DockPanel>
+
         <!-- Sidebar -->
-        <StackPanel Grid.Column="0" Background="#202124">
-            <!-- Sidebar header -->
-            <Border Background="#323234" Height="60">
-                <TextBlock Text="{Binding StoreName}" Foreground="White" VerticalAlignment="Center" Margin="20,0"/>
-            </Border>
+        <StackPanel Grid.Column="0" Grid.Row="1" Background="#202124">
 
             <!-- Sidebar items -->
             <ItemsControl ItemsSource="{Binding NavigationItems}">
@@ -75,12 +106,12 @@
                     </DataTemplate>
                 </ItemsControl.ItemTemplate>
             </ItemsControl>
-           
+
             <!-- Add more buttons as needed -->
         </StackPanel>
 
         <!-- Main content area -->
-        <Border Grid.Column="1" Background="#FFFFFF">
+        <Border Grid.Column="1" Grid.Row="1" Background="#FFFFFF">
             <!-- Main content of the window -->
             <ContentControl Content="{Binding CurrentPage}" />
 

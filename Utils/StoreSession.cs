@@ -23,5 +23,10 @@ namespace Store_Management.Utils
         public Employee ActiveEmployee { get; set; }
 
         public StoreSession() { }
+
+        public void SetActiveEmployee(Employee emp)
+        {
+            ActiveEmployee = emp;
+        }
     }
 }

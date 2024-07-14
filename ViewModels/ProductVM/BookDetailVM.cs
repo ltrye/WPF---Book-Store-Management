@@ -1,7 +1,7 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Store_Management.Data;
 using Store_Management.Data.Models;
-using Store_Management.Data.Services;
+using Store_Management.Services;
 using Store_Management.Utils;
 using System;
 using System.Collections.Generic;
@@ -15,8 +15,8 @@ namespace Store_Management.ViewModels.ProductVM
 {
     public class BookDetailVM : ViewModelBase
     {
-        private bool _isUpdateDisabled = true;
-        public bool IsUpdateDisabled { get => _isUpdateDisabled; set => SetProperty(ref _isUpdateDisabled, value); }
+        //private bool _isUpdateDisabled = true;
+  
         private BookService BookService { get; }
         private int _id;
         private int _authorId;
@@ -30,7 +30,7 @@ namespace Store_Management.ViewModels.ProductVM
         private string _imageUrl;
         private bool _isActive;
 
-        #region Getter, Setter
+        #region Properties
         public int Id { get => _id; set => SetProperty(ref _id, value); }
         public string Title { get => _title; set => SetProperty(ref _title, value); }
         public string Description { get => _description; set => SetProperty(ref _description, value); }
@@ -42,17 +42,15 @@ namespace Store_Management.ViewModels.ProductVM
         public int CategoryId { get => _categoryId; set => SetProperty(ref _categoryId, value); }
         public string? ImageUrl { get => _imageUrl; set => SetProperty(ref _imageUrl, value); }
         public bool IsActive { get => _isActive; set => SetProperty(ref _isActive, value); }
+        //public bool IsUpdateDisabled { get => _isUpdateDisabled; set => SetProperty(ref _isUpdateDisabled, value); }
         #endregion
 
         public BookDetailVM(int? bookId = null)
         {
 
             BookService = new BookService();
-
-            EnableUpdateCmd = new(obj => { IsUpdateDisabled = false; }, obj => IsUpdateDisabled);
             AddBookCommand = new(obj => AddBook());
-            UpdateBookCommand = new(obj => UpdateBook(), obj => !IsUpdateDisabled);
-
+            UpdateBookCommand = new(obj => UpdateBook());
 
             if (bookId != null)
             {
@@ -61,7 +59,6 @@ namespace Store_Management.ViewModels.ProductVM
                 Task init = LoadBookToUpdateForm();
                 return;
             }
-            IsUpdateDisabled = false;
             SaveChangeCommand = AddBookCommand;
         }
         public RelayCommand AddBookCommand { get; }
@@ -122,9 +119,9 @@ namespace Store_Management.ViewModels.ProductVM
             }
             catch (Exception ex)
             {
-                Notification.Notify("Add fail!", "Error");
+                Notification.Error("Add fail!", "Error");
             }
-            Notification.Notify("Add book successfully!", "Success");
+            Notification.Error("Add book successfully!", "Success");
 
         }
 
@@ -133,12 +130,12 @@ namespace Store_Management.ViewModels.ProductVM
             bool isSuccess = await BookService.UpdateBook(BookFromViewModel());
             if (isSuccess)
             {
-                Notification.Notify("Update success!", "Success");
+                Notification.Error("Update success!", "Success");
 
             }
             else
             {
-                Notification.Notify("Update fail!", "Error");
+                Notification.Error("Update fail!", "Error");
             }
             await LoadBookToUpdateForm();
         }

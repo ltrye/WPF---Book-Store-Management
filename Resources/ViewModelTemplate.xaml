@@ -3,13 +3,26 @@
                     xmlns:vm="clr-namespace:Store_Management.ViewModels"
                     xmlns:productVM="clr-namespace:Store_Management.ViewModels.ProductVM"
                     xmlns:publisherVM="clr-namespace:Store_Management.ViewModels.PublisherVM"
+                    xmlns:employeeVM="clr-namespace:Store_Management.ViewModels.EmployeeVM"
+                    
                     xmlns:v="clr-namespace:Store_Management.Views"
                     xmlns:productv="clr-namespace:Store_Management.Views.Product"
+                    xmlns:employeeView="clr-namespace:Store_Management.Views.Employee"
                     >
 
     <DataTemplate DataType="{x:Type vm:HomeVM}">
         <v:HomePage/>
     </DataTemplate>
+    
+    <!--Employee-->
+    <DataTemplate DataType="{x:Type employeeVM:LoginVM}">
+        <employeeView:Login/>
+    </DataTemplate>
+    <DataTemplate DataType="{x:Type employeeVM:SignupVM}">
+        <employeeView:Signup/>
+    </DataTemplate>
+    
+    <!--Product-->
     <DataTemplate DataType="{x:Type productVM:ListProductVM}">
         <productv:ListProduct/>
     </DataTemplate>
@@ -19,5 +32,6 @@
     <DataTemplate DataType="{x:Type productVM:StationeryDetailVM}">
         <productv:StationeryDetail/>
     </DataTemplate>
+    
 
 </ResourceDictionary>

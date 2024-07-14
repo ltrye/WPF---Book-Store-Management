@@ -1,47 +1,94 @@
-﻿using System;
+﻿using Store_Management.Data.Models;
+using Store_Management.Services;
+using Store_Management.Utils;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows.Controls;
 
 namespace Store_Management.ViewModels.EmployeeVM
 {
-	public class SignupVM : ViewModelBase
-	{
-		private string _fullName;
+    public class SignupVM : ViewModelBase
+    {
+        EmployeeService EmployeeService { get; set; }
 
-		public string FullName
-		{
-			get { return _fullName; }
-			set { _fullName = value; OnPropertyChanged(); }
-		}
+        private Employee.Role RoleToSignUp {  get; }
 
-		private string _email;
+        private string _fullName;
+        private string _email;
+        private string _password;
+        public string _confirmPassword;
 
-		public string Email
-		{
-			get { return _email; }
-			set { _email = value; }
-		}
+        #region Properties
+        public string Email
+        {
+            get { return _email; }
+            set { _email = value; }
+        }
 
-		private string _password;
+        public string FullName
+        {
+            get { return _fullName; }
+            set { _fullName = value; OnPropertyChanged(); }
+        }
+        public string Password
+        {
+            get { return _password; }
+            set { _password = value; OnPropertyChanged(); }
+        }
+        public string ConfirmPassword
+        {
+            get { return _confirmPassword; }
+            set
+            {
+                _confirmPassword = value; OnPropertyChanged();
+            }
+        }
+        #endregion
+        public SignupVM(Employee.Role role= Employee.Role.STAFF)
+        {
+            RoleToSignUp = role;
 
-		public string Password
-		{
-			get { return _password; }
-			set { _password = value; OnPropertyChanged(); }
-		}
+            EmployeeService = new EmployeeService();
 
-		public string _confirmPassword;
-		public string ConfirmPassword
-		{
-			get { return _confirmPassword; }
-			set
-			{
-				_confirmPassword = value; OnPropertyChanged();
-			}
-		}
+            OnPasswordChangedCmd = new(OnPasswordChange);
+            OnConfirmPasswordChangedCmd = new(OnConfirmPasswordChanged);
+            SignUpCmd = new(async obj => await Signup());
 
-		//public RelayCommand LoginCmd { get; set; } = new RelayCommand(obj => );
-	}
+        }
+
+        public async Task Signup()
+        {
+            try
+            {
+
+                Employee emp = await EmployeeService.Signup(FullName, Email, Password, ConfirmPassword, RoleToSignUp);
+                Notification.Success("Sign up successfully!");
+                StoreSession.Instance.SetActiveEmployee(emp);
+
+                Navigator.INSTANCE.OpenStoreMainWindow(Navigator.OpenAction.CLOSE_CURRENT);
+            }
+            catch (Exception ex)
+            {
+                Notification.Error(ex.Message, "Error");
+            }
+        }
+
+        private void OnPasswordChange(Object? obj)
+        {
+            PasswordBox box = (PasswordBox)obj!;
+            Password = box.Password;
+        }
+        private void OnConfirmPasswordChanged(Object? obj)
+        {
+            PasswordBox box = (PasswordBox)obj!;
+            ConfirmPassword = box.Password;
+        }
+        public RelayCommand OnPasswordChangedCmd { get; set; }
+        public RelayCommand OnConfirmPasswordChangedCmd { get; set; }
+
+        public RelayCommand SignUpCmd { get; set; }
+    }
 }

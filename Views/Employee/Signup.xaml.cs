@@ -1,6 +1,8 @@
-﻿using Store_Management.Utils;
-using Store_Management.ViewModels;
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
 using System.Text;
+using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Data;
@@ -11,17 +13,16 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 
-namespace Store_Management.Views
+namespace Store_Management.Views.Employee
 {
     /// <summary>
-    /// Interaction logic for MainWindow.xaml
+    /// Interaction logic for Signup.xaml
     /// </summary>
-    public partial class MainWindow : Window
+    public partial class Signup : UserControl
     {
-        public MainWindow(NavigationPanelVM vm)
+        public Signup()
         {
             InitializeComponent();
-            this.DataContext = vm;
         }
     }
 }
