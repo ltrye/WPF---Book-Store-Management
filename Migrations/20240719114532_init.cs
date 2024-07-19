@@ -8,7 +8,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 namespace Store_Management.Migrations
 {
     /// <inheritdoc />
-    public partial class initial : Migration
+    public partial class init : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
@@ -176,7 +176,7 @@ namespace Store_Management.Migrations
                 {
                     Id = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
-                    CustomerId = table.Column<int>(type: "int", nullable: false),
+                    CustomerId = table.Column<int>(type: "int", nullable: true),
                     EmployeeId = table.Column<int>(type: "int", nullable: false),
                     TotalPrice = table.Column<decimal>(type: "decimal(20,0)", nullable: false),
                     IsActive = table.Column<bool>(type: "bit", nullable: false),
@@ -192,8 +192,7 @@ namespace Store_Management.Migrations
                         name: "FK_Sales_Customers_CustomerId",
                         column: x => x.CustomerId,
                         principalTable: "Customers",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
+                        principalColumn: "Id");
                     table.ForeignKey(
                         name: "FK_Sales_Employees_EmployeeId",
                         column: x => x.EmployeeId,
@@ -250,31 +249,6 @@ namespace Store_Management.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "SaleItem",
-                columns: table => new
-                {
-                    Id = table.Column<int>(type: "int", nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1"),
-                    SaleId = table.Column<int>(type: "int", nullable: false),
-                    quantity = table.Column<int>(type: "int", nullable: false),
-                    IsActive = table.Column<bool>(type: "bit", nullable: false),
-                    CreatedBy = table.Column<int>(type: "int", nullable: false),
-                    CreatedDate = table.Column<DateTime>(type: "datetime2", nullable: false),
-                    UpdatedBy = table.Column<int>(type: "int", nullable: true),
-                    UpdatedDate = table.Column<DateTime>(type: "datetime2", nullable: true)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_SaleItem", x => x.Id);
-                    table.ForeignKey(
-                        name: "FK_SaleItem_Sales_SaleId",
-                        column: x => x.SaleId,
-                        principalTable: "Sales",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
-                });
-
-            migrationBuilder.CreateTable(
                 name: "BookSerialNumber",
                 columns: table => new
                 {
@@ -288,6 +262,38 @@ namespace Store_Management.Migrations
                         name: "FK_BookSerialNumber_Books_BookId",
                         column: x => x.BookId,
                         principalTable: "Books",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "SaleItem",
+                columns: table => new
+                {
+                    Id = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    SaleId = table.Column<int>(type: "int", nullable: false),
+                    quantity = table.Column<int>(type: "int", nullable: false),
+                    BookId = table.Column<int>(type: "int", nullable: false),
+                    IsActive = table.Column<bool>(type: "bit", nullable: false),
+                    CreatedBy = table.Column<int>(type: "int", nullable: false),
+                    CreatedDate = table.Column<DateTime>(type: "datetime2", nullable: false),
+                    UpdatedBy = table.Column<int>(type: "int", nullable: true),
+                    UpdatedDate = table.Column<DateTime>(type: "datetime2", nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_SaleItem", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_SaleItem_Books_BookId",
+                        column: x => x.BookId,
+                        principalTable: "Books",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                    table.ForeignKey(
+                        name: "FK_SaleItem_Sales_SaleId",
+                        column: x => x.SaleId,
+                        principalTable: "Sales",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                 });
@@ -325,28 +331,30 @@ namespace Store_Management.Migrations
             migrationBuilder.InsertData(
                 table: "Employees",
                 columns: new[] { "Id", "Address", "Age", "CitizenId", "CreatedBy", "CreatedDate", "Email", "FullName", "IsActive", "Password", "PhoneNumber", "ProfileImage", "RoleId", "UpdatedBy", "UpdatedDate" },
-                values: new object[] { 1, "Ha Noi, Viet Nam", 30, "0049393859", 1, new DateTime(2024, 7, 18, 20, 7, 44, 976, DateTimeKind.Local).AddTicks(2488), "admin@gmail.com", "Le Trung Ha", true, "AQAAAAEAACcQAAAAELkmiywABvS7CuDMOizvFZAcM0PFm41LpVWfrviktituMRaltQuJab+Nvm4fu84AKQ==", "094859404", null, 1, null, null });
+                values: new object[,]
+                {
+                    { 1, "Ha Noi, Viet Nam", 30, "0049393859", 1, new DateTime(2024, 7, 19, 18, 45, 32, 1, DateTimeKind.Local).AddTicks(1948), "admin@gmail.com", "Le Trung Ha", true, "AQAAAAEAACcQAAAAELkmiywABvS7CuDMOizvFZAcM0PFm41LpVWfrviktituMRaltQuJab+Nvm4fu84AKQ==", "094859404", null, 1, null, null },
+                    { 2, "Ha Noi, Viet Nam", 30, "0049393859", 1, new DateTime(2024, 7, 19, 18, 45, 32, 1, DateTimeKind.Local).AddTicks(1958), "c@gmail.com", "Tran Van B", true, "AQAAAAEAACcQAAAAELkmiywABvS7CuDMOizvFZAcM0PFm41LpVWfrviktituMRaltQuJab+Nvm4fu84AKQ==", "094859404", null, 2, null, null },
+                    { 3, "Ha Noi, Viet Nam", 30, "0049393859", 1, new DateTime(2024, 7, 19, 18, 45, 32, 1, DateTimeKind.Local).AddTicks(1961), "b@gmail.com", "Nguyen Van A", true, "AQAAAAEAACcQAAAAELkmiywABvS7CuDMOizvFZAcM0PFm41LpVWfrviktituMRaltQuJab+Nvm4fu84AKQ==", "094859404", null, 2, null, null },
+                    { 4, "Ha Noi, Viet Nam", 30, "0049393859", 1, new DateTime(2024, 7, 19, 18, 45, 32, 1, DateTimeKind.Local).AddTicks(1963), "a@gmail.com", "Nguyen Thi C", false, "AQAAAAEAACcQAAAAELkmiywABvS7CuDMOizvFZAcM0PFm41LpVWfrviktituMRaltQuJab+Nvm4fu84AKQ==", "094859404", null, 2, null, null }
+                });
 
             migrationBuilder.InsertData(
                 table: "Publishers",
                 columns: new[] { "Id", "CreatedBy", "CreatedDate", "IsActive", "Name", "UpdatedBy", "UpdatedDate" },
                 values: new object[,]
                 {
-                    { 1, 1, new DateTime(2024, 7, 18, 20, 7, 44, 976, DateTimeKind.Local).AddTicks(2525), false, "NXB Kim Đồng", null, null },
-                    { 2, 1, new DateTime(2024, 7, 18, 20, 7, 44, 976, DateTimeKind.Local).AddTicks(2526), false, "NXB Giáo Dục", null, null },
-                    { 3, 1, new DateTime(2024, 7, 18, 20, 7, 44, 976, DateTimeKind.Local).AddTicks(2527), false, "NXB Trẻ", null, null },
-                    { 4, 1, new DateTime(2024, 7, 18, 20, 7, 44, 976, DateTimeKind.Local).AddTicks(2528), false, "NXB Hội Nhà Văn", null, null },
-                    { 5, 1, new DateTime(2024, 7, 18, 20, 7, 44, 976, DateTimeKind.Local).AddTicks(2529), false, "NXB Văn Học", null, null }
+                    { 1, 1, new DateTime(2024, 7, 19, 18, 45, 32, 1, DateTimeKind.Local).AddTicks(1983), false, "NXB Kim Đồng", null, null },
+                    { 2, 1, new DateTime(2024, 7, 19, 18, 45, 32, 1, DateTimeKind.Local).AddTicks(1984), false, "NXB Giáo Dục", null, null },
+                    { 3, 1, new DateTime(2024, 7, 19, 18, 45, 32, 1, DateTimeKind.Local).AddTicks(1985), false, "NXB Trẻ", null, null },
+                    { 4, 1, new DateTime(2024, 7, 19, 18, 45, 32, 1, DateTimeKind.Local).AddTicks(1986), false, "NXB Hội Nhà Văn", null, null },
+                    { 5, 1, new DateTime(2024, 7, 19, 18, 45, 32, 1, DateTimeKind.Local).AddTicks(1987), false, "NXB Văn Học", null, null }
                 });
 
             migrationBuilder.InsertData(
                 table: "Books",
                 columns: new[] { "Id", "AuthorId", "BookSize", "CategoryId", "CreatedBy", "CreatedDate", "Description", "ISBN", "ImageUrl", "IsActive", "Name", "NumberOfPage", "Price", "PublicationYear", "PublisherId", "Stock", "UpdatedBy", "UpdatedDate" },
-                values: new object[,]
-                {
-                    { 1, 1, "15.9 x 1.3 x 22.2", 1, 1, new DateTime(2024, 7, 18, 20, 7, 44, 976, DateTimeKind.Local).AddTicks(2588), "Classic novel by F. Scott Fitzgerald", "BK235", "the_great_gatsby.jpg", true, "The Great Gatsby", 30, 10.99m, 2025, 1, 0, null, null },
-                    { 2, 1, "15.9 x 1.3 x 22.2", 1, 1, new DateTime(2024, 7, 18, 20, 7, 44, 976, DateTimeKind.Local).AddTicks(2592), "Dystopian novel by George Orwell", "BK235", "1984.jpg", true, "1984", 30, 10.99m, 2025, 1, 0, null, null }
-                });
+                values: new object[] { 1, 1, "15.9 x 1.3 x 22.2", 1, 1, new DateTime(2024, 7, 19, 18, 45, 32, 1, DateTimeKind.Local).AddTicks(2047), "Classic novel by F. Scott Fitzgerald", "BK235", "the_great_gatsby.jpg", true, "The Great Gatsby", 30, 150000m, 2025, 1, 50, null, null });
 
             migrationBuilder.InsertData(
                 table: "Categories",
@@ -362,6 +370,20 @@ namespace Store_Management.Migrations
                     { 15, 0, new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), false, "Autobiography", 6, null, null },
                     { 16, 0, new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), false, "World War II", 7, null, null },
                     { 17, 0, new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), false, "Painting", 8, null, null }
+                });
+
+            migrationBuilder.InsertData(
+                table: "Books",
+                columns: new[] { "Id", "AuthorId", "BookSize", "CategoryId", "CreatedBy", "CreatedDate", "Description", "ISBN", "ImageUrl", "IsActive", "Name", "NumberOfPage", "Price", "PublicationYear", "PublisherId", "Stock", "UpdatedBy", "UpdatedDate" },
+                values: new object[,]
+                {
+                    { 2, 2, "16.0 x 2.0 x 23.0", 9, 1, new DateTime(2024, 7, 19, 18, 45, 32, 1, DateTimeKind.Local).AddTicks(2050), "Comprehensive guide to best practices in Java programming.", "BK236", "effective_java.jpg", true, "Effective Java", 400, 450000m, 2024, 2, 100, null, null },
+                    { 3, 3, "18.0 x 3.0 x 24.0", 10, 1, new DateTime(2024, 7, 19, 18, 45, 32, 1, DateTimeKind.Local).AddTicks(2053), "Deep dive into C# programming with professional tips and tricks.", "BK237", "pro_csharp_8.jpg", true, "Pro C# 8.0", 1200, 550000m, 2023, 1, 75, null, null },
+                    { 4, 4, "14.0 x 2.5 x 21.0", 12, 1, new DateTime(2024, 7, 19, 18, 45, 32, 1, DateTimeKind.Local).AddTicks(2055), "Epic science fiction novel by Frank Herbert.", "BK238", "dune.jpg", true, "Dune", 900, 60000m, 2021, 2, 200, null, null },
+                    { 5, 5, "15.0 x 3.5 x 23.0", 14, 1, new DateTime(2024, 7, 19, 18, 45, 32, 1, DateTimeKind.Local).AddTicks(2057), "All the classic tales of Sherlock Holmes by Arthur Conan Doyle.", "BK239", "sherlock_holmes.jpg", true, "Sherlock Holmes: The Complete Novels and Stories", 2200, 980000m, 2022, 4, 80, null, null },
+                    { 6, 6, "16.0 x 2.0 x 24.0", 15, 1, new DateTime(2024, 7, 19, 18, 45, 32, 1, DateTimeKind.Local).AddTicks(2059), "Michelle Obama's deeply personal memoir.", "BK240", "becoming.jpg", true, "Becoming", 400, 500000m, 2020, 4, 120, null, null },
+                    { 7, 7, "17.0 x 2.5 x 25.0", 16, 1, new DateTime(2024, 7, 19, 18, 45, 32, 1, DateTimeKind.Local).AddTicks(2061), "Comprehensive history of World War II by Antony Beevor.", "BK241", "the_second_world_war.jpg", true, "The Second World War", 800, 2000000m, 2019, 4, 50, null, null },
+                    { 8, 8, "20.0 x 3.0 x 28.0", 17, 1, new DateTime(2024, 7, 19, 18, 45, 32, 1, DateTimeKind.Local).AddTicks(2063), "A comprehensive introduction to art and artists from around the world.", "BK242", "the_art_book.jpg", true, "The Art Book", 600, 85000m, 2018, 4, 30, null, null }
                 });
 
             migrationBuilder.CreateIndex(
@@ -388,6 +410,11 @@ namespace Store_Management.Migrations
                 name: "IX_KPIRecords_EmployeeId",
                 table: "KPIRecords",
                 column: "EmployeeId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_SaleItem_BookId",
+                table: "SaleItem",
+                column: "BookId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_SaleItem_SaleId",

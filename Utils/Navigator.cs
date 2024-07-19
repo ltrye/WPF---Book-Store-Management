@@ -8,6 +8,7 @@ using System.Windows;
 using System.Windows.Controls;
 using Store_Management.Data.Models;
 using Store_Management.ViewModels;
+using Store_Management.ViewModels.AuthorVM;
 using Store_Management.ViewModels.EmployeeVM;
 using Store_Management.ViewModels.ProductVM;
 using Store_Management.ViewModels.SaleVM;
@@ -163,6 +164,10 @@ namespace Store_Management.Utils
             _navigationVM.CurrentPage = new EmployeeListVM();
         }
 
+        public void ToAuthorList()
+        {
+            _navigationVM.CurrentPage = new AuthorDetailVM();
+        }
         public void ToCreateTransaction()
         {
             _navigationVM.CurrentPage = new CreateSaleVM();

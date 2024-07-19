@@ -50,7 +50,13 @@ namespace Store_Management.Data
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
 
+            modelBuilder.Entity<Category>()
+                .HasOne(cate => cate.Parent)
+                .WithMany(cate => cate.SubCategories)
+                .HasForeignKey(cate => cate.ParentId)
+                .OnDelete(DeleteBehavior.Restrict);
 
+            #region Author
             modelBuilder.Entity<Author>().HasData(
              (new Author { Id = 1, Name = "Nguyễn Nhật Ánh", Description = "Popular contemporary novelist and screenwriter." }),
          (new Author { Id = 2, Name = "Nguyễn Hồng", Description = "Acclaimed poet and author of modern Vietnamese literature." }),
@@ -61,13 +67,9 @@ namespace Store_Management.Data
          (new Author { Id = 7, Name = "Phan Hồn Nhân", Description = "Contemporary writer of short stories and novels reflecting on urban life." }),
          (new Author { Id = 8, Name = "Trịnh Bích Ngân", Description = "Novelist and playwright known for feminist themes in Vietnamese literature." })
               );
-            modelBuilder.Entity<Category>()
-                .HasOne(cate => cate.Parent)
-                .WithMany(cate => cate.SubCategories)
-                .HasForeignKey(cate => cate.ParentId)
-                .OnDelete(DeleteBehavior.Restrict);
+            #endregion
 
-
+            #region Employees
             modelBuilder.Entity<Employee>()
                 .HasData(
                     new Employee
@@ -84,10 +86,56 @@ namespace Store_Management.Data
                         Address = "Ha Noi, Viet Nam",
                         PhoneNumber = "094859404",
                         Password = "AQAAAAEAACcQAAAAELkmiywABvS7CuDMOizvFZAcM0PFm41LpVWfrviktituMRaltQuJab+Nvm4fu84AKQ=="
-                    }
+                    },
+                     new Employee
+                     {
+                         Id = 2,
+                         FullName = "Tran Van B",
+                         RoleId = (int)Employee.Role.STAFF,
+                         CitizenId = "0049393859",
+                         Age = 30,
+                         CreatedDate = DateTime.Now,
+                         CreatedBy = 1,
+                         IsActive = true,
+                         Email = "c@gmail.com",
+                         Address = "Ha Noi, Viet Nam",
+                         PhoneNumber = "094859404",
+                         Password = "AQAAAAEAACcQAAAAELkmiywABvS7CuDMOizvFZAcM0PFm41LpVWfrviktituMRaltQuJab+Nvm4fu84AKQ=="
+                     },
+                     new Employee
+                     {
+                         Id = 3,
+                         FullName = "Nguyen Van A",
+                         RoleId = (int)Employee.Role.STAFF,
+                         CitizenId = "0049393859",
+                         Age = 30,
+                         CreatedDate = DateTime.Now,
+                         CreatedBy = 1,
+                         IsActive = true,
+                         Email = "b@gmail.com",
+                         Address = "Ha Noi, Viet Nam",
+                         PhoneNumber = "094859404",
+                         Password = "AQAAAAEAACcQAAAAELkmiywABvS7CuDMOizvFZAcM0PFm41LpVWfrviktituMRaltQuJab+Nvm4fu84AKQ=="
+                     },
+                     new Employee
+                     {
+                         Id = 4,
+                         FullName = "Nguyen Thi C",
+                         RoleId = (int)Employee.Role.STAFF,
+                         CitizenId = "0049393859",
+                         Age = 30,
+                         CreatedDate = DateTime.Now,
+                         CreatedBy = 1,
+                         IsActive = false,
+                         Email = "a@gmail.com",
+                         Address = "Ha Noi, Viet Nam",
+                         PhoneNumber = "094859404",
+                         Password = "AQAAAAEAACcQAAAAELkmiywABvS7CuDMOizvFZAcM0PFm41LpVWfrviktituMRaltQuJab+Nvm4fu84AKQ=="
+                     }
                 );
+            #endregion
 
-    
+            #region Publisher
             modelBuilder.Entity<Publisher>()
                 .HasData(
                    new Publisher
@@ -126,7 +174,9 @@ namespace Store_Management.Data
                     CreatedDate = DateTime.Now
                 }
                 );
-          
+            #endregion
+
+            #region Category
 
             modelBuilder.Entity<Category>().HasData(
       new Category { Id = 1, Name = "English Book", ParentId = null },
@@ -149,51 +199,166 @@ namespace Store_Management.Data
       new Category { Id = 16, Name = "World War II", ParentId = 7 },
       new Category { Id = 17, Name = "Painting", ParentId = 8 }
   );
+            #endregion
 
+            #region Book
             modelBuilder.Entity<Book>().HasData(
-                   new Book
-                   {
-                       Id = 1,
-                       PublisherId = 1,
-                       ISBN = "BK235",
-                       CategoryId = 1,
-                       PublicationYear = 2025,
-                       Name = "The Great Gatsby",
-                       AuthorId = 1,
-                       Description = "Classic novel by F. Scott Fitzgerald",
-                       BookSize = "15.9 x 1.3 x 22.2",
-                       NumberOfPage = 30,
-                       Price = 10.99m,
-                       IsActive = true,
-                       Stock=50,
-                       ImageUrl = "the_great_gatsby.jpg",
-                       CreatedBy = 1,
-                       CreatedDate = DateTime.Now
+                 new Book
+                 {
+                     Id = 1,
+                     PublisherId = 1,
+                     ISBN = "BK235",
+                     CategoryId = 1,
+                     PublicationYear = 2025,
+                     Name = "The Great Gatsby",
+                     AuthorId = 1,
+                     Description = "Classic novel by F. Scott Fitzgerald",
+                     BookSize = "15.9 x 1.3 x 22.2",
+                     NumberOfPage = 30,
+                     Price = 150000,
+                     IsActive = true,
+                     Stock = 50,
+                     ImageUrl = "the_great_gatsby.jpg",
+                     CreatedBy = 1,
+                     CreatedDate = DateTime.Now
+                 },
+                 new Book
+                 {
+                     Id = 2,
+                     PublisherId = 2,
+                     ISBN = "BK236",
+                     CategoryId = 9, // Java
+                     PublicationYear = 2024,
+                     Name = "Effective Java",
+                     AuthorId = 2,
+                     Description = "Comprehensive guide to best practices in Java programming.",
+                     BookSize = "16.0 x 2.0 x 23.0",
+                     NumberOfPage = 400,
+                     Price = 450000,
+                     IsActive = true,
+                     Stock = 100,
+                     ImageUrl = "effective_java.jpg",
+                     CreatedBy = 1,
+                     CreatedDate = DateTime.Now
+                 },
+                 new Book
+                 {
+                     Id = 3,
+                     PublisherId = 1,
+                     ISBN = "BK237",
+                     CategoryId = 10, // C#
+                     PublicationYear = 2023,
+                     Name = "Pro C# 8.0",
+                     AuthorId = 3,
+                     Description = "Deep dive into C# programming with professional tips and tricks.",
+                     BookSize = "18.0 x 3.0 x 24.0",
+                     NumberOfPage = 1200,
+                     Price = 550000,
+                     IsActive = true,
+                     Stock = 75,
+                     ImageUrl = "pro_csharp_8.jpg",
+                     CreatedBy = 1,
+                     CreatedDate = DateTime.Now
+                 },
+                 new Book
+                 {
+                     Id = 4,
+                     PublisherId = 2,
+                     ISBN = "BK238",
+                     CategoryId = 12, // Space Opera
+                     PublicationYear = 2021,
+                     Name = "Dune",
+                     AuthorId = 4,
+                     Description = "Epic science fiction novel by Frank Herbert.",
+                     BookSize = "14.0 x 2.5 x 21.0",
+                     NumberOfPage = 900,
+                     Price = 60000,
+                     IsActive = true,
+                     Stock = 200,
+                     ImageUrl = "dune.jpg",
+                     CreatedBy = 1,
+                     CreatedDate = DateTime.Now
+                 },
+                 new Book
+                 {
+                     Id = 5,
+                     PublisherId = 4,
+                     ISBN = "BK239",
+                     CategoryId = 14, // Detective
+                     PublicationYear = 2022,
+                     Name = "Sherlock Holmes: The Complete Novels and Stories",
+                     AuthorId = 5,
+                     Description = "All the classic tales of Sherlock Holmes by Arthur Conan Doyle.",
+                     BookSize = "15.0 x 3.5 x 23.0",
+                     NumberOfPage = 2200,
+                     Price = 980000,
+                     IsActive = true,
+                     Stock = 80,
+                     ImageUrl = "sherlock_holmes.jpg",
+                     CreatedBy = 1,
+                     CreatedDate = DateTime.Now
+                 },
+                 new Book
+                 {
+                     Id = 6,
+                     PublisherId = 4,
+                     ISBN = "BK240",
+                     CategoryId = 15, // Autobiography
+                     PublicationYear = 2020,
+                     Name = "Becoming",
+                     AuthorId = 6,
+                     Description = "Michelle Obama's deeply personal memoir.",
+                     BookSize = "16.0 x 2.0 x 24.0",
+                     NumberOfPage = 400,
+                     Price = 500000,
+                     IsActive = true,
+                     Stock = 120,
+                     ImageUrl = "becoming.jpg",
+                     CreatedBy = 1,
+                     CreatedDate = DateTime.Now
+                 },
+                 new Book
+                 {
+                     Id = 7,
+                     PublisherId = 4,
+                     ISBN = "BK241",
+                     CategoryId = 16, // World War II
+                     PublicationYear = 2019,
+                     Name = "The Second World War",
+                     AuthorId = 7,
+                     Description = "Comprehensive history of World War II by Antony Beevor.",
+                     BookSize = "17.0 x 2.5 x 25.0",
+                     NumberOfPage = 800,
+                     Price = 2000000,
+                     IsActive = true,
+                     Stock = 50,
+                     ImageUrl = "the_second_world_war.jpg",
+                     CreatedBy = 1,
+                     CreatedDate = DateTime.Now
+                 },
+                 new Book
+                 {
+                     Id = 8,
+                     PublisherId = 4,
+                     ISBN = "BK242",
+                     CategoryId = 17, // Painting
+                     PublicationYear = 2018,
+                     Name = "The Art Book",
+                     AuthorId = 8,
+                     Description = "A comprehensive introduction to art and artists from around the world.",
+                     BookSize = "20.0 x 3.0 x 28.0",
+                     NumberOfPage = 600,
+                     Price = 85000,
+                     IsActive = true,
+                     Stock = 30,
+                     ImageUrl = "the_art_book.jpg",
+                     CreatedBy = 1,
+                     CreatedDate = DateTime.Now
+                 }
+ );
 
-                   },
-                   new Book
-                   {
-                       Id = 2,
-                       PublisherId = 1,
-                       ISBN = "BK235",
-                       CategoryId = 1,
-                       AuthorId= 1,
-                       PublicationYear = 2025,
-                       Name = "1984",
-                       Description = "Dystopian novel by George Orwell",
-                       BookSize = "15.9 x 1.3 x 22.2",
-                       NumberOfPage = 30,
-                       Price = 10.99m,
-                       IsActive = true,
-                       ImageUrl = "1984.jpg",
-                       Stock = 50,
-                       CreatedBy = 1,
-                       CreatedDate = DateTime.Now
 
-                   }
-
-                );
-
+            #endregion
 
 
         }

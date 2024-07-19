@@ -93,7 +93,7 @@
                   HorizontalAlignment="Center"
                   Text="{Binding CustomerPhone}" />
 
-                <TextBlock FontSize="20" FontWeight="Bold" Foreground="Red" Text="{Binding DisplayTotalPrice}">
+                <TextBlock FontSize="20" FontWeight="Bold" Foreground="Red" Text="{Binding TotalPrice, StringFormat=' {0:N0} vnd '}">
 
                 </TextBlock>
                 <Button Content="Checkout"

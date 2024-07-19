@@ -20,5 +20,47 @@ namespace Store_Management.Services
                 return await Context.Authors.ToListAsync();
             }
         }
+        public async Task<Author?> GetAuthorByIdAsync(int id)
+        {
+            using (Context = new StoreDbContext())
+            {
+                return await Context.Authors.FindAsync(id);
+            }
+        }
+
+        public async Task AddAuthorAsync(Author author)
+        {
+            using (Context = new StoreDbContext())
+            {
+
+                Context.Authors.Add(author);
+                await Context.SaveChangesAsync();
+            }
+        }
+
+        public async Task UpdateAuthorAsync(Author author)
+        {
+            using (Context = new StoreDbContext())
+            {
+
+                Context.Authors.Update(author);
+                await Context.SaveChangesAsync();
+            }
+        }
+
+        public async Task DeleteAuthorAsync(int id)
+        {
+
+            using (Context = new StoreDbContext())
+            {
+
+                var author = await Context.Authors.FindAsync(id);
+                if (author != null)
+                {
+                    Context.Authors.Remove(author);
+                    await Context.SaveChangesAsync();
+                }
+            }
+        }
     }
 }

@@ -12,8 +12,8 @@ using Store_Management.Data;
 namespace Store_Management.Migrations
 {
     [DbContext(typeof(StoreDbContext))]
-    [Migration("20240718130745_initial")]
-    partial class initial
+    [Migration("20240719114749_fixAuthor")]
+    partial class fixAuthor
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -33,27 +33,12 @@ namespace Store_Management.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
-                    b.Property<int>("CreatedBy")
-                        .HasColumnType("int");
-
-                    b.Property<DateTime>("CreatedDate")
-                        .HasColumnType("datetime2");
-
                     b.Property<string>("Description")
                         .HasColumnType("nvarchar(max)");
-
-                    b.Property<bool>("IsActive")
-                        .HasColumnType("bit");
 
                     b.Property<string>("Name")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
-
-                    b.Property<int?>("UpdatedBy")
-                        .HasColumnType("int");
-
-                    b.Property<DateTime?>("UpdatedDate")
-                        .HasColumnType("datetime2");
 
                     b.HasKey("Id");
 
@@ -63,73 +48,49 @@ namespace Store_Management.Migrations
                         new
                         {
                             Id = 1,
-                            CreatedBy = 0,
-                            CreatedDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             Description = "Popular contemporary novelist and screenwriter.",
-                            IsActive = false,
                             Name = "Nguyễn Nhật Ánh"
                         },
                         new
                         {
                             Id = 2,
-                            CreatedBy = 0,
-                            CreatedDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             Description = "Acclaimed poet and author of modern Vietnamese literature.",
-                            IsActive = false,
                             Name = "Nguyễn Hồng"
                         },
                         new
                         {
                             Id = 3,
-                            CreatedBy = 0,
-                            CreatedDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             Description = "Novelist known for exploring social issues in Vietnam.",
-                            IsActive = false,
                             Name = "Nguyễn Thành Long"
                         },
                         new
                         {
                             Id = 4,
-                            CreatedBy = 0,
-                            CreatedDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             Description = "Award-winning author of novels and poetry, focusing on Vietnamese history and culture.",
-                            IsActive = false,
                             Name = "Nguyễn Phan Quế Mai"
                         },
                         new
                         {
                             Id = 5,
-                            CreatedBy = 0,
-                            CreatedDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             Description = "Young novelist and short story writer known for contemporary themes.",
-                            IsActive = false,
                             Name = "Lê Minh Khuê"
                         },
                         new
                         {
                             Id = 6,
-                            CreatedBy = 0,
-                            CreatedDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             Description = "Modern poet and essayist exploring existential and philosophical themes.",
-                            IsActive = false,
                             Name = "Bùi Anh Tấn"
                         },
                         new
                         {
                             Id = 7,
-                            CreatedBy = 0,
-                            CreatedDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             Description = "Contemporary writer of short stories and novels reflecting on urban life.",
-                            IsActive = false,
                             Name = "Phan Hồn Nhân"
                         },
                         new
                         {
                             Id = 8,
-                            CreatedBy = 0,
-                            CreatedDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             Description = "Novelist and playwright known for feminist themes in Vietnamese literature.",
-                            IsActive = false,
                             Name = "Trịnh Bích Ngân"
                         });
                 });
@@ -215,36 +176,150 @@ namespace Store_Management.Migrations
                             BookSize = "15.9 x 1.3 x 22.2",
                             CategoryId = 1,
                             CreatedBy = 1,
-                            CreatedDate = new DateTime(2024, 7, 18, 20, 7, 44, 976, DateTimeKind.Local).AddTicks(2588),
+                            CreatedDate = new DateTime(2024, 7, 19, 18, 47, 49, 703, DateTimeKind.Local).AddTicks(1303),
                             Description = "Classic novel by F. Scott Fitzgerald",
                             ISBN = "BK235",
                             ImageUrl = "the_great_gatsby.jpg",
                             IsActive = true,
                             Name = "The Great Gatsby",
                             NumberOfPage = 30,
-                            Price = 10.99m,
+                            Price = 150000m,
                             PublicationYear = 2025,
                             PublisherId = 1,
-                            Stock = 0
+                            Stock = 50
                         },
                         new
                         {
                             Id = 2,
-                            AuthorId = 1,
-                            BookSize = "15.9 x 1.3 x 22.2",
-                            CategoryId = 1,
+                            AuthorId = 2,
+                            BookSize = "16.0 x 2.0 x 23.0",
+                            CategoryId = 9,
                             CreatedBy = 1,
-                            CreatedDate = new DateTime(2024, 7, 18, 20, 7, 44, 976, DateTimeKind.Local).AddTicks(2592),
-                            Description = "Dystopian novel by George Orwell",
-                            ISBN = "BK235",
-                            ImageUrl = "1984.jpg",
+                            CreatedDate = new DateTime(2024, 7, 19, 18, 47, 49, 703, DateTimeKind.Local).AddTicks(1306),
+                            Description = "Comprehensive guide to best practices in Java programming.",
+                            ISBN = "BK236",
+                            ImageUrl = "effective_java.jpg",
                             IsActive = true,
-                            Name = "1984",
-                            NumberOfPage = 30,
-                            Price = 10.99m,
-                            PublicationYear = 2025,
+                            Name = "Effective Java",
+                            NumberOfPage = 400,
+                            Price = 450000m,
+                            PublicationYear = 2024,
+                            PublisherId = 2,
+                            Stock = 100
+                        },
+                        new
+                        {
+                            Id = 3,
+                            AuthorId = 3,
+                            BookSize = "18.0 x 3.0 x 24.0",
+                            CategoryId = 10,
+                            CreatedBy = 1,
+                            CreatedDate = new DateTime(2024, 7, 19, 18, 47, 49, 703, DateTimeKind.Local).AddTicks(1308),
+                            Description = "Deep dive into C# programming with professional tips and tricks.",
+                            ISBN = "BK237",
+                            ImageUrl = "pro_csharp_8.jpg",
+                            IsActive = true,
+                            Name = "Pro C# 8.0",
+                            NumberOfPage = 1200,
+                            Price = 550000m,
+                            PublicationYear = 2023,
                             PublisherId = 1,
-                            Stock = 0
+                            Stock = 75
+                        },
+                        new
+                        {
+                            Id = 4,
+                            AuthorId = 4,
+                            BookSize = "14.0 x 2.5 x 21.0",
+                            CategoryId = 12,
+                            CreatedBy = 1,
+                            CreatedDate = new DateTime(2024, 7, 19, 18, 47, 49, 703, DateTimeKind.Local).AddTicks(1311),
+                            Description = "Epic science fiction novel by Frank Herbert.",
+                            ISBN = "BK238",
+                            ImageUrl = "dune.jpg",
+                            IsActive = true,
+                            Name = "Dune",
+                            NumberOfPage = 900,
+                            Price = 60000m,
+                            PublicationYear = 2021,
+                            PublisherId = 2,
+                            Stock = 200
+                        },
+                        new
+                        {
+                            Id = 5,
+                            AuthorId = 5,
+                            BookSize = "15.0 x 3.5 x 23.0",
+                            CategoryId = 14,
+                            CreatedBy = 1,
+                            CreatedDate = new DateTime(2024, 7, 19, 18, 47, 49, 703, DateTimeKind.Local).AddTicks(1313),
+                            Description = "All the classic tales of Sherlock Holmes by Arthur Conan Doyle.",
+                            ISBN = "BK239",
+                            ImageUrl = "sherlock_holmes.jpg",
+                            IsActive = true,
+                            Name = "Sherlock Holmes: The Complete Novels and Stories",
+                            NumberOfPage = 2200,
+                            Price = 980000m,
+                            PublicationYear = 2022,
+                            PublisherId = 4,
+                            Stock = 80
+                        },
+                        new
+                        {
+                            Id = 6,
+                            AuthorId = 6,
+                            BookSize = "16.0 x 2.0 x 24.0",
+                            CategoryId = 15,
+                            CreatedBy = 1,
+                            CreatedDate = new DateTime(2024, 7, 19, 18, 47, 49, 703, DateTimeKind.Local).AddTicks(1316),
+                            Description = "Michelle Obama's deeply personal memoir.",
+                            ISBN = "BK240",
+                            ImageUrl = "becoming.jpg",
+                            IsActive = true,
+                            Name = "Becoming",
+                            NumberOfPage = 400,
+                            Price = 500000m,
+                            PublicationYear = 2020,
+                            PublisherId = 4,
+                            Stock = 120
+                        },
+                        new
+                        {
+                            Id = 7,
+                            AuthorId = 7,
+                            BookSize = "17.0 x 2.5 x 25.0",
+                            CategoryId = 16,
+                            CreatedBy = 1,
+                            CreatedDate = new DateTime(2024, 7, 19, 18, 47, 49, 703, DateTimeKind.Local).AddTicks(1318),
+                            Description = "Comprehensive history of World War II by Antony Beevor.",
+                            ISBN = "BK241",
+                            ImageUrl = "the_second_world_war.jpg",
+                            IsActive = true,
+                            Name = "The Second World War",
+                            NumberOfPage = 800,
+                            Price = 2000000m,
+                            PublicationYear = 2019,
+                            PublisherId = 4,
+                            Stock = 50
+                        },
+                        new
+                        {
+                            Id = 8,
+                            AuthorId = 8,
+                            BookSize = "20.0 x 3.0 x 28.0",
+                            CategoryId = 17,
+                            CreatedBy = 1,
+                            CreatedDate = new DateTime(2024, 7, 19, 18, 47, 49, 703, DateTimeKind.Local).AddTicks(1320),
+                            Description = "A comprehensive introduction to art and artists from around the world.",
+                            ISBN = "BK242",
+                            ImageUrl = "the_art_book.jpg",
+                            IsActive = true,
+                            Name = "The Art Book",
+                            NumberOfPage = 600,
+                            Price = 85000m,
+                            PublicationYear = 2018,
+                            PublisherId = 4,
+                            Stock = 30
                         });
                 });
 
@@ -550,13 +625,58 @@ namespace Store_Management.Migrations
                             Age = 30,
                             CitizenId = "0049393859",
                             CreatedBy = 1,
-                            CreatedDate = new DateTime(2024, 7, 18, 20, 7, 44, 976, DateTimeKind.Local).AddTicks(2488),
+                            CreatedDate = new DateTime(2024, 7, 19, 18, 47, 49, 703, DateTimeKind.Local).AddTicks(1192),
                             Email = "admin@gmail.com",
                             FullName = "Le Trung Ha",
                             IsActive = true,
                             Password = "AQAAAAEAACcQAAAAELkmiywABvS7CuDMOizvFZAcM0PFm41LpVWfrviktituMRaltQuJab+Nvm4fu84AKQ==",
                             PhoneNumber = "094859404",
                             RoleId = 1
+                        },
+                        new
+                        {
+                            Id = 2,
+                            Address = "Ha Noi, Viet Nam",
+                            Age = 30,
+                            CitizenId = "0049393859",
+                            CreatedBy = 1,
+                            CreatedDate = new DateTime(2024, 7, 19, 18, 47, 49, 703, DateTimeKind.Local).AddTicks(1206),
+                            Email = "c@gmail.com",
+                            FullName = "Tran Van B",
+                            IsActive = true,
+                            Password = "AQAAAAEAACcQAAAAELkmiywABvS7CuDMOizvFZAcM0PFm41LpVWfrviktituMRaltQuJab+Nvm4fu84AKQ==",
+                            PhoneNumber = "094859404",
+                            RoleId = 2
+                        },
+                        new
+                        {
+                            Id = 3,
+                            Address = "Ha Noi, Viet Nam",
+                            Age = 30,
+                            CitizenId = "0049393859",
+                            CreatedBy = 1,
+                            CreatedDate = new DateTime(2024, 7, 19, 18, 47, 49, 703, DateTimeKind.Local).AddTicks(1209),
+                            Email = "b@gmail.com",
+                            FullName = "Nguyen Van A",
+                            IsActive = true,
+                            Password = "AQAAAAEAACcQAAAAELkmiywABvS7CuDMOizvFZAcM0PFm41LpVWfrviktituMRaltQuJab+Nvm4fu84AKQ==",
+                            PhoneNumber = "094859404",
+                            RoleId = 2
+                        },
+                        new
+                        {
+                            Id = 4,
+                            Address = "Ha Noi, Viet Nam",
+                            Age = 30,
+                            CitizenId = "0049393859",
+                            CreatedBy = 1,
+                            CreatedDate = new DateTime(2024, 7, 19, 18, 47, 49, 703, DateTimeKind.Local).AddTicks(1212),
+                            Email = "a@gmail.com",
+                            FullName = "Nguyen Thi C",
+                            IsActive = false,
+                            Password = "AQAAAAEAACcQAAAAELkmiywABvS7CuDMOizvFZAcM0PFm41LpVWfrviktituMRaltQuJab+Nvm4fu84AKQ==",
+                            PhoneNumber = "094859404",
+                            RoleId = 2
                         });
                 });
 
@@ -681,7 +801,7 @@ namespace Store_Management.Migrations
                         {
                             Id = 1,
                             CreatedBy = 1,
-                            CreatedDate = new DateTime(2024, 7, 18, 20, 7, 44, 976, DateTimeKind.Local).AddTicks(2525),
+                            CreatedDate = new DateTime(2024, 7, 19, 18, 47, 49, 703, DateTimeKind.Local).AddTicks(1237),
                             IsActive = false,
                             Name = "NXB Kim Đồng"
                         },
@@ -689,7 +809,7 @@ namespace Store_Management.Migrations
                         {
                             Id = 2,
                             CreatedBy = 1,
-                            CreatedDate = new DateTime(2024, 7, 18, 20, 7, 44, 976, DateTimeKind.Local).AddTicks(2526),
+                            CreatedDate = new DateTime(2024, 7, 19, 18, 47, 49, 703, DateTimeKind.Local).AddTicks(1238),
                             IsActive = false,
                             Name = "NXB Giáo Dục"
                         },
@@ -697,7 +817,7 @@ namespace Store_Management.Migrations
                         {
                             Id = 3,
                             CreatedBy = 1,
-                            CreatedDate = new DateTime(2024, 7, 18, 20, 7, 44, 976, DateTimeKind.Local).AddTicks(2527),
+                            CreatedDate = new DateTime(2024, 7, 19, 18, 47, 49, 703, DateTimeKind.Local).AddTicks(1239),
                             IsActive = false,
                             Name = "NXB Trẻ"
                         },
@@ -705,7 +825,7 @@ namespace Store_Management.Migrations
                         {
                             Id = 4,
                             CreatedBy = 1,
-                            CreatedDate = new DateTime(2024, 7, 18, 20, 7, 44, 976, DateTimeKind.Local).AddTicks(2528),
+                            CreatedDate = new DateTime(2024, 7, 19, 18, 47, 49, 703, DateTimeKind.Local).AddTicks(1240),
                             IsActive = false,
                             Name = "NXB Hội Nhà Văn"
                         },
@@ -713,7 +833,7 @@ namespace Store_Management.Migrations
                         {
                             Id = 5,
                             CreatedBy = 1,
-                            CreatedDate = new DateTime(2024, 7, 18, 20, 7, 44, 976, DateTimeKind.Local).AddTicks(2529),
+                            CreatedDate = new DateTime(2024, 7, 19, 18, 47, 49, 703, DateTimeKind.Local).AddTicks(1241),
                             IsActive = false,
                             Name = "NXB Văn Học"
                         });
@@ -733,7 +853,7 @@ namespace Store_Management.Migrations
                     b.Property<DateTime>("CreatedDate")
                         .HasColumnType("datetime2");
 
-                    b.Property<int>("CustomerId")
+                    b.Property<int?>("CustomerId")
                         .HasColumnType("int");
 
                     b.Property<int>("EmployeeId")
@@ -768,6 +888,9 @@ namespace Store_Management.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
+                    b.Property<int>("BookId")
+                        .HasColumnType("int");
+
                     b.Property<int>("CreatedBy")
                         .HasColumnType("int");
 
@@ -790,6 +913,8 @@ namespace Store_Management.Migrations
                         .HasColumnType("int");
 
                     b.HasKey("Id");
+
+                    b.HasIndex("BookId");
 
                     b.HasIndex("SaleId");
 
@@ -859,9 +984,7 @@ namespace Store_Management.Migrations
                 {
                     b.HasOne("Store_Management.Data.Models.Customer", "Customer")
                         .WithMany()
-                        .HasForeignKey("CustomerId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                        .HasForeignKey("CustomerId");
 
                     b.HasOne("Store_Management.Data.Models.Employee", "Employee")
                         .WithMany()
@@ -876,11 +999,19 @@ namespace Store_Management.Migrations
 
             modelBuilder.Entity("Store_Management.Data.Models.SaleItem", b =>
                 {
+                    b.HasOne("Store_Management.Data.Models.Book", "Book")
+                        .WithMany()
+                        .HasForeignKey("BookId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
                     b.HasOne("Store_Management.Data.Models.Sale", "Sale")
                         .WithMany("SaleDetails")
                         .HasForeignKey("SaleId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
+
+                    b.Navigation("Book");
 
                     b.Navigation("Sale");
                 });

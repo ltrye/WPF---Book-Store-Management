@@ -49,9 +49,9 @@ namespace Store_Management
         protected override void OnStartup(StartupEventArgs e)
         {
             Navigator.CreateInstance();
-            //navigator.instance.openemployeestartwindow();
-            StoreSession.Instance.ActiveEmployee = new StoreDbContext().Employees.Find(1);
-            Navigator.INSTANCE.OpenStoreMainWindow();
+            Navigator.INSTANCE.OpenEmployeeStartWindow();
+            //StoreSession.Instance.ActiveEmployee = new StoreDbContext().Employees.Find(1);
+            //Navigator.INSTANCE.OpenStoreMainWindow();
 
         }
 

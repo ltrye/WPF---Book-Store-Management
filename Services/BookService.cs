@@ -23,7 +23,13 @@ namespace Store_Management.Services
             Context = new StoreDbContext();
         }
 
-
+        public async Task<int> CountAll()
+        {
+            using(Context = new StoreDbContext())
+            {
+                return await Context.Books.CountAsync();
+            }
+        }
         public async Task<List<Book>> SearchBooks(string searchTerm)
         {
             using (Context = new StoreDbContext())

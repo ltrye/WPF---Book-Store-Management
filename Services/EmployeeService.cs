@@ -26,6 +26,14 @@ namespace Store_Management.Services
         {
             return string.Empty;
         }
+
+        public async Task<int> CountActive()
+        {
+            using (Context = new StoreDbContext())
+            {
+                return await Context.Employees.Where(e => e.IsActive).CountAsync();
+            }
+        }
         public async Task<List<Employee>> FindAll(int? excludeId = null)
         {
             StartTransaction();

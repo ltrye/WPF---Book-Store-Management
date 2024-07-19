@@ -18,6 +18,7 @@ namespace Store_Management.Services
 
         private StoreDbContext Context { get; set; }
 
+       
         public int CalculateTotalPrice(List<SaleItem> items)
         {
             int TotalPrice = 0;
@@ -26,6 +27,13 @@ namespace Store_Management.Services
                 TotalPrice += (int)item.Book.Price * item.quantity;
             }
             return TotalPrice;
+        }
+
+        public async Task<int> CountAllOrder()
+        {
+            using(Context = new StoreDbContext()) { 
+                return await Context.Sales.CountAsync();
+            }
         }
         public async Task AddTransaction(Sale sale, String? customerPhone, String? customerName)
         {
@@ -99,6 +107,42 @@ namespace Store_Management.Services
             {
                 return await Context.Sales.Include(s => s.Customer).ToListAsync();
             }
+        }
+
+        public async Task<decimal> GetTotalSales()
+        {
+            using var context = new StoreDbContext();
+            var salesTotal = await context.Sales.SumAsync(s => s.TotalPrice);
+            return salesTotal;
+        }
+        public async Task<Dictionary<int, decimal>> GetSalesStatisticsForMonthAsync(int month, int year)
+        {
+            using var context = new StoreDbContext();
+            // Validate the input month and year
+            if (month < 1 || month > 12 || year < 1)
+            {
+                throw new ArgumentOutOfRangeException("Invalid month or year.");
+            }
+
+            // Get the start and end dates for the specified month and year
+            var startDate = new DateTime(year, month, 1);
+            var endDate = startDate.AddMonths(1).AddDays(-1);
+
+            // Query the sales data for the specified month
+            var sales = await context.Sales
+                .Where(s => s.CreatedDate >= startDate && s.CreatedDate <= endDate)
+                .GroupBy(s => s.CreatedDate.Day)
+                .Select(g => new
+                {
+                    Day = g.Key,
+                    TotalSales = g.Sum(s => s.TotalPrice)
+                })
+                .ToListAsync();
+
+            // Convert the result to a dictionary
+            var result = sales.ToDictionary(s => s.Day, s => s.TotalSales);
+
+            return result;
         }
     }
 }

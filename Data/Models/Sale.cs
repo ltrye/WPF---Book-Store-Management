@@ -23,6 +23,7 @@ namespace Store_Management.Data.Models
         [Column(TypeName ="decimal(20,0)")]
         public Decimal TotalPrice {  get; set; }
 
+
         
     }
 }

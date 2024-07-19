@@ -12,8 +12,8 @@ using Store_Management.Data;
 namespace Store_Management.Migrations
 {
     [DbContext(typeof(StoreDbContext))]
-    [Migration("20240718160214_changeSale")]
-    partial class changeSale
+    [Migration("20240719114532_init")]
+    partial class init
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -215,14 +215,14 @@ namespace Store_Management.Migrations
                             BookSize = "15.9 x 1.3 x 22.2",
                             CategoryId = 1,
                             CreatedBy = 1,
-                            CreatedDate = new DateTime(2024, 7, 18, 23, 2, 13, 636, DateTimeKind.Local).AddTicks(44),
+                            CreatedDate = new DateTime(2024, 7, 19, 18, 45, 32, 1, DateTimeKind.Local).AddTicks(2047),
                             Description = "Classic novel by F. Scott Fitzgerald",
                             ISBN = "BK235",
                             ImageUrl = "the_great_gatsby.jpg",
                             IsActive = true,
                             Name = "The Great Gatsby",
                             NumberOfPage = 30,
-                            Price = 10.99m,
+                            Price = 150000m,
                             PublicationYear = 2025,
                             PublisherId = 1,
                             Stock = 50
@@ -230,21 +230,135 @@ namespace Store_Management.Migrations
                         new
                         {
                             Id = 2,
-                            AuthorId = 1,
-                            BookSize = "15.9 x 1.3 x 22.2",
-                            CategoryId = 1,
+                            AuthorId = 2,
+                            BookSize = "16.0 x 2.0 x 23.0",
+                            CategoryId = 9,
                             CreatedBy = 1,
-                            CreatedDate = new DateTime(2024, 7, 18, 23, 2, 13, 636, DateTimeKind.Local).AddTicks(47),
-                            Description = "Dystopian novel by George Orwell",
-                            ISBN = "BK235",
-                            ImageUrl = "1984.jpg",
+                            CreatedDate = new DateTime(2024, 7, 19, 18, 45, 32, 1, DateTimeKind.Local).AddTicks(2050),
+                            Description = "Comprehensive guide to best practices in Java programming.",
+                            ISBN = "BK236",
+                            ImageUrl = "effective_java.jpg",
                             IsActive = true,
-                            Name = "1984",
-                            NumberOfPage = 30,
-                            Price = 10.99m,
-                            PublicationYear = 2025,
+                            Name = "Effective Java",
+                            NumberOfPage = 400,
+                            Price = 450000m,
+                            PublicationYear = 2024,
+                            PublisherId = 2,
+                            Stock = 100
+                        },
+                        new
+                        {
+                            Id = 3,
+                            AuthorId = 3,
+                            BookSize = "18.0 x 3.0 x 24.0",
+                            CategoryId = 10,
+                            CreatedBy = 1,
+                            CreatedDate = new DateTime(2024, 7, 19, 18, 45, 32, 1, DateTimeKind.Local).AddTicks(2053),
+                            Description = "Deep dive into C# programming with professional tips and tricks.",
+                            ISBN = "BK237",
+                            ImageUrl = "pro_csharp_8.jpg",
+                            IsActive = true,
+                            Name = "Pro C# 8.0",
+                            NumberOfPage = 1200,
+                            Price = 550000m,
+                            PublicationYear = 2023,
                             PublisherId = 1,
+                            Stock = 75
+                        },
+                        new
+                        {
+                            Id = 4,
+                            AuthorId = 4,
+                            BookSize = "14.0 x 2.5 x 21.0",
+                            CategoryId = 12,
+                            CreatedBy = 1,
+                            CreatedDate = new DateTime(2024, 7, 19, 18, 45, 32, 1, DateTimeKind.Local).AddTicks(2055),
+                            Description = "Epic science fiction novel by Frank Herbert.",
+                            ISBN = "BK238",
+                            ImageUrl = "dune.jpg",
+                            IsActive = true,
+                            Name = "Dune",
+                            NumberOfPage = 900,
+                            Price = 60000m,
+                            PublicationYear = 2021,
+                            PublisherId = 2,
+                            Stock = 200
+                        },
+                        new
+                        {
+                            Id = 5,
+                            AuthorId = 5,
+                            BookSize = "15.0 x 3.5 x 23.0",
+                            CategoryId = 14,
+                            CreatedBy = 1,
+                            CreatedDate = new DateTime(2024, 7, 19, 18, 45, 32, 1, DateTimeKind.Local).AddTicks(2057),
+                            Description = "All the classic tales of Sherlock Holmes by Arthur Conan Doyle.",
+                            ISBN = "BK239",
+                            ImageUrl = "sherlock_holmes.jpg",
+                            IsActive = true,
+                            Name = "Sherlock Holmes: The Complete Novels and Stories",
+                            NumberOfPage = 2200,
+                            Price = 980000m,
+                            PublicationYear = 2022,
+                            PublisherId = 4,
+                            Stock = 80
+                        },
+                        new
+                        {
+                            Id = 6,
+                            AuthorId = 6,
+                            BookSize = "16.0 x 2.0 x 24.0",
+                            CategoryId = 15,
+                            CreatedBy = 1,
+                            CreatedDate = new DateTime(2024, 7, 19, 18, 45, 32, 1, DateTimeKind.Local).AddTicks(2059),
+                            Description = "Michelle Obama's deeply personal memoir.",
+                            ISBN = "BK240",
+                            ImageUrl = "becoming.jpg",
+                            IsActive = true,
+                            Name = "Becoming",
+                            NumberOfPage = 400,
+                            Price = 500000m,
+                            PublicationYear = 2020,
+                            PublisherId = 4,
+                            Stock = 120
+                        },
+                        new
+                        {
+                            Id = 7,
+                            AuthorId = 7,
+                            BookSize = "17.0 x 2.5 x 25.0",
+                            CategoryId = 16,
+                            CreatedBy = 1,
+                            CreatedDate = new DateTime(2024, 7, 19, 18, 45, 32, 1, DateTimeKind.Local).AddTicks(2061),
+                            Description = "Comprehensive history of World War II by Antony Beevor.",
+                            ISBN = "BK241",
+                            ImageUrl = "the_second_world_war.jpg",
+                            IsActive = true,
+                            Name = "The Second World War",
+                            NumberOfPage = 800,
+                            Price = 2000000m,
+                            PublicationYear = 2019,
+                            PublisherId = 4,
                             Stock = 50
+                        },
+                        new
+                        {
+                            Id = 8,
+                            AuthorId = 8,
+                            BookSize = "20.0 x 3.0 x 28.0",
+                            CategoryId = 17,
+                            CreatedBy = 1,
+                            CreatedDate = new DateTime(2024, 7, 19, 18, 45, 32, 1, DateTimeKind.Local).AddTicks(2063),
+                            Description = "A comprehensive introduction to art and artists from around the world.",
+                            ISBN = "BK242",
+                            ImageUrl = "the_art_book.jpg",
+                            IsActive = true,
+                            Name = "The Art Book",
+                            NumberOfPage = 600,
+                            Price = 85000m,
+                            PublicationYear = 2018,
+                            PublisherId = 4,
+                            Stock = 30
                         });
                 });
 
@@ -550,13 +664,58 @@ namespace Store_Management.Migrations
                             Age = 30,
                             CitizenId = "0049393859",
                             CreatedBy = 1,
-                            CreatedDate = new DateTime(2024, 7, 18, 23, 2, 13, 635, DateTimeKind.Local).AddTicks(9935),
+                            CreatedDate = new DateTime(2024, 7, 19, 18, 45, 32, 1, DateTimeKind.Local).AddTicks(1948),
                             Email = "admin@gmail.com",
                             FullName = "Le Trung Ha",
                             IsActive = true,
                             Password = "AQAAAAEAACcQAAAAELkmiywABvS7CuDMOizvFZAcM0PFm41LpVWfrviktituMRaltQuJab+Nvm4fu84AKQ==",
                             PhoneNumber = "094859404",
                             RoleId = 1
+                        },
+                        new
+                        {
+                            Id = 2,
+                            Address = "Ha Noi, Viet Nam",
+                            Age = 30,
+                            CitizenId = "0049393859",
+                            CreatedBy = 1,
+                            CreatedDate = new DateTime(2024, 7, 19, 18, 45, 32, 1, DateTimeKind.Local).AddTicks(1958),
+                            Email = "c@gmail.com",
+                            FullName = "Tran Van B",
+                            IsActive = true,
+                            Password = "AQAAAAEAACcQAAAAELkmiywABvS7CuDMOizvFZAcM0PFm41LpVWfrviktituMRaltQuJab+Nvm4fu84AKQ==",
+                            PhoneNumber = "094859404",
+                            RoleId = 2
+                        },
+                        new
+                        {
+                            Id = 3,
+                            Address = "Ha Noi, Viet Nam",
+                            Age = 30,
+                            CitizenId = "0049393859",
+                            CreatedBy = 1,
+                            CreatedDate = new DateTime(2024, 7, 19, 18, 45, 32, 1, DateTimeKind.Local).AddTicks(1961),
+                            Email = "b@gmail.com",
+                            FullName = "Nguyen Van A",
+                            IsActive = true,
+                            Password = "AQAAAAEAACcQAAAAELkmiywABvS7CuDMOizvFZAcM0PFm41LpVWfrviktituMRaltQuJab+Nvm4fu84AKQ==",
+                            PhoneNumber = "094859404",
+                            RoleId = 2
+                        },
+                        new
+                        {
+                            Id = 4,
+                            Address = "Ha Noi, Viet Nam",
+                            Age = 30,
+                            CitizenId = "0049393859",
+                            CreatedBy = 1,
+                            CreatedDate = new DateTime(2024, 7, 19, 18, 45, 32, 1, DateTimeKind.Local).AddTicks(1963),
+                            Email = "a@gmail.com",
+                            FullName = "Nguyen Thi C",
+                            IsActive = false,
+                            Password = "AQAAAAEAACcQAAAAELkmiywABvS7CuDMOizvFZAcM0PFm41LpVWfrviktituMRaltQuJab+Nvm4fu84AKQ==",
+                            PhoneNumber = "094859404",
+                            RoleId = 2
                         });
                 });
 
@@ -681,7 +840,7 @@ namespace Store_Management.Migrations
                         {
                             Id = 1,
                             CreatedBy = 1,
-                            CreatedDate = new DateTime(2024, 7, 18, 23, 2, 13, 635, DateTimeKind.Local).AddTicks(9971),
+                            CreatedDate = new DateTime(2024, 7, 19, 18, 45, 32, 1, DateTimeKind.Local).AddTicks(1983),
                             IsActive = false,
                             Name = "NXB Kim Đồng"
                         },
@@ -689,7 +848,7 @@ namespace Store_Management.Migrations
                         {
                             Id = 2,
                             CreatedBy = 1,
-                            CreatedDate = new DateTime(2024, 7, 18, 23, 2, 13, 635, DateTimeKind.Local).AddTicks(9973),
+                            CreatedDate = new DateTime(2024, 7, 19, 18, 45, 32, 1, DateTimeKind.Local).AddTicks(1984),
                             IsActive = false,
                             Name = "NXB Giáo Dục"
                         },
@@ -697,7 +856,7 @@ namespace Store_Management.Migrations
                         {
                             Id = 3,
                             CreatedBy = 1,
-                            CreatedDate = new DateTime(2024, 7, 18, 23, 2, 13, 635, DateTimeKind.Local).AddTicks(9974),
+                            CreatedDate = new DateTime(2024, 7, 19, 18, 45, 32, 1, DateTimeKind.Local).AddTicks(1985),
                             IsActive = false,
                             Name = "NXB Trẻ"
                         },
@@ -705,7 +864,7 @@ namespace Store_Management.Migrations
                         {
                             Id = 4,
                             CreatedBy = 1,
-                            CreatedDate = new DateTime(2024, 7, 18, 23, 2, 13, 635, DateTimeKind.Local).AddTicks(9975),
+                            CreatedDate = new DateTime(2024, 7, 19, 18, 45, 32, 1, DateTimeKind.Local).AddTicks(1986),
                             IsActive = false,
                             Name = "NXB Hội Nhà Văn"
                         },
@@ -713,7 +872,7 @@ namespace Store_Management.Migrations
                         {
                             Id = 5,
                             CreatedBy = 1,
-                            CreatedDate = new DateTime(2024, 7, 18, 23, 2, 13, 635, DateTimeKind.Local).AddTicks(9976),
+                            CreatedDate = new DateTime(2024, 7, 19, 18, 45, 32, 1, DateTimeKind.Local).AddTicks(1987),
                             IsActive = false,
                             Name = "NXB Văn Học"
                         });

@@ -51,7 +51,6 @@ namespace Store_Management.ViewModels.SaleVM
         private string? _customerName;
         private int _totalPrice;
 
-        private string _displayTotalPrice;
 
 
         #region Properties
@@ -60,8 +59,7 @@ namespace Store_Management.ViewModels.SaleVM
 
         public string? CustomerPhone { get => _customerPhone; set => SetProperty(ref _customerPhone, value); }
         public string? CustomerName { get => _customerName; set => SetProperty(ref _customerName, value); }
-        public int TotalPrice { get => _totalPrice; set { SetProperty(ref _totalPrice, value); DisplayTotalPrice = $"{_totalPrice} vnd"; } }
-        public string DisplayTotalPrice { get => _displayTotalPrice; set => SetProperty(ref _displayTotalPrice , value); }
+        public int TotalPrice { get => _totalPrice; set => SetProperty(ref _totalPrice, value); }
         public ObservableCollection<SaleItem> SaleItems { get => _saleItems; set => SetProperty(ref _saleItems, value); }
         #endregion
 

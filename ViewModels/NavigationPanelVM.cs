@@ -34,28 +34,38 @@ namespace Store_Management.ViewModels
 
         #endregion
 
+        public List<string> STAFF_FUNCTION = new List<string> {"Create transaction", "Profile", "Products Management", "Authors Management" };
         public NavigationPanelVM()
         {
-            Navigator = Navigator.INSTANCE;
-            Navigator.RegisterNavigationViewModel(this);
 
-            NavigationItems = new ObservableCollection<NavigationItem>
+            IEnumerable<NavigationItem> functionList = new List<NavigationItem>
             {
                 new("Home", (obj) => Navigator.ToHome(), isActive: true),
                 new("Create transaction", (obj) => Navigator.ToCreateTransaction()),
                 new("Products Management", (obj) => Navigator.ToProductList()),
+                new("Authors Management", (obj) => Navigator.ToAuthorList()),
                 new("Transaction history", (obj) => Navigator.ToSaleHistory()),
                 new("Work Management", (obj) => Navigator.ToProductList()),
                 new("Employess Management", (obj) => Navigator.ToEmployeeList()),
                 new("Profile", (obj) => Navigator.ToEmployeeProfile(StoreSession.Instance.ActiveEmployee.Id)),
+
             };
+
+
+            Navigator = Navigator.INSTANCE;
+            Navigator.RegisterNavigationViewModel(this);
 
             //Employee
             CurrentEmployee = StoreSession.Instance.ActiveEmployee;
+            if(CurrentEmployee.RoleId == (int)Employee.Role.STAFF)
+            {
+                functionList = functionList.Where(f => STAFF_FUNCTION.Contains(f.Name));
+            }
 
-            //if(CurrentEmployee.RoleId == (int)Employee.Role.STAFF) {
-            //    NavigationItems.Remo NavigationItems.Where(i => true);
-            //}
+            NavigationItems = new ObservableCollection<NavigationItem>(functionList);
+           
+
+        
             //Command
             LogoutCommand = new(obj => Logout());
 

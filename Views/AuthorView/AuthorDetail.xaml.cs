@@ -1,6 +1,4 @@
-﻿using LiveCharts;
-using LiveCharts.Wpf;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -15,23 +13,16 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 
-namespace Store_Management.Views
+namespace Store_Management.Views.AuthorView
 {
     /// <summary>
-    /// Interaction logic for HomePage.xaml
+    /// Interaction logic for AuthorDetail.xaml
     /// </summary>
-    public partial class HomePage : UserControl
+    public partial class AuthorDetail : UserControl
     {
-        public SeriesCollection SeriesCollection { get; set; }
-        public string[] Labels { get; set; }
-        public Func<double, string> Formatter { get; set; }
-        public HomePage()
+        public AuthorDetail()
         {
             InitializeComponent();
-        }
-
-        private void HomePage_Loaded(object sender, RoutedEventArgs e)
-        {
         }
     }
 }
