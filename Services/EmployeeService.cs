@@ -12,6 +12,9 @@ namespace Store_Management.Services
 {
     public class EmployeeService
     {
+
+        public delegate void EmployeeUpdatedHandler(Employee employee);
+        public event EmployeeUpdatedHandler EmployeeUpdated;
         private StoreDbContext Context { get; set; }
         public EmployeeService() { }
 
@@ -23,6 +26,11 @@ namespace Store_Management.Services
         {
             return string.Empty;
         }
+        public async Task<List<Employee>> FindAll(int? excludeId = null)
+        {
+            StartTransaction();
+            return await Context.Employees.Where(e => e.Id != excludeId).ToListAsync();
+        }
 
         public async Task<Employee?> FindByEmail(string email)
         {
@@ -30,7 +38,14 @@ namespace Store_Management.Services
             return await Context.Employees.FirstOrDefaultAsync(emp => emp.Email.Equals(email));
 
         }
-        public async Task<Employee> Signup(string fullName, string email, string password,string confirmPassword, Employee.Role role)
+        public async Task<Employee?> FindById(int id)
+        {
+            StartTransaction();
+            return await Context.Employees.FirstOrDefaultAsync(emp => emp.Id == id);
+
+        }
+        
+        public async Task<Employee> Signup(string fullName, string email,string phone, string password,string confirmPassword, Employee.Role role)
         {
             if (!password.Equals(confirmPassword)) throw new Exception("Password not match");
 
@@ -49,9 +64,11 @@ namespace Store_Management.Services
                 FullName = fullName,
                 Email = email,
                 Password = hashPassword,
+                PhoneNumber = phone,
                 RoleId = (int)role,
                 CreatedBy = 1,
-                CreatedDate = DateTime.Now
+                CreatedDate = DateTime.Now,
+                IsActive = false
 
 
             };
@@ -75,6 +92,14 @@ namespace Store_Management.Services
             }
             return emp;
         }
+
+        public async Task DeleteById(int id)
+        {
+            StartTransaction();
+            Employee? emp = await FindById(id) ?? throw new Exception("Employee not found!");
+            emp.IsActive = false;
+            await Context.SaveChangesAsync();
+        }
         public async Task<Employee> AddOne(Employee emp)
         {
             StartTransaction();
@@ -82,10 +107,33 @@ namespace Store_Management.Services
             Context.SaveChanges();
             return entity;
         }
+
+        public async Task Update(Employee emp)
+        {
+            StartTransaction();
+            var ent = await FindById(emp.Id);
+            if (ent is null) { throw new Exception("Employee not found!"); }
+            ent.FullName = emp.FullName;
+            ent.Address = emp.Address;  
+            ent.Email = emp.Email;
+            ent.Age = emp.Age;
+            ent.PhoneNumber = emp.PhoneNumber;
+            ent.ProfileImage = emp.ProfileImage;
+            ent.RoleId = emp.RoleId;
+            ent.CitizenId =emp.CitizenId;
+            ent.UpdatedDate = DateTime.Now;
+            ent.UpdatedBy = emp.UpdatedBy;
+            ent.IsActive = emp.IsActive;
+            
+            await Context.SaveChangesAsync();
+ 
+        }
         public bool AnyEmployeesExist()
         {
             StartTransaction();
             return Context.Employees.Any();
         }
+
+        
     }
 }

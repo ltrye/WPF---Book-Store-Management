@@ -16,22 +16,22 @@ namespace Store_Management.Data.Models
         public string FullName { get; set; }
         [Required]
         public string Email { get; set; }
+
+        [Required] public string PhoneNumber { get; set; }
         [Required]
         public string Password { get; set; }
         [Required]
         public int RoleId { get; set; }
 
-        [Required]
-        public string CitizenId {  get; set; }
+        public string? CitizenId {  get; set; }
 
-        [Required]
-        public int Age { get; set; }
+        public int? Age { get; set; }
         public string? Address { get; set; }
         public string? ProfileImage {  get; set; }
         public enum Role
         {
-            ADMIN,
-            STAFF
+            ADMIN =1,
+            STAFF =2,
         }
     }
 }

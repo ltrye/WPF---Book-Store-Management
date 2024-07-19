@@ -4,10 +4,12 @@
                     xmlns:productVM="clr-namespace:Store_Management.ViewModels.ProductVM"
                     xmlns:publisherVM="clr-namespace:Store_Management.ViewModels.PublisherVM"
                     xmlns:employeeVM="clr-namespace:Store_Management.ViewModels.EmployeeVM"
+                    xmlns:saleVM="clr-namespace:Store_Management.ViewModels.SaleVM"
                     
                     xmlns:v="clr-namespace:Store_Management.Views"
                     xmlns:productv="clr-namespace:Store_Management.Views.Product"
-                    xmlns:employeeView="clr-namespace:Store_Management.Views.Employee"
+                    xmlns:employeeView="clr-namespace:Store_Management.Views.EmployeeView"
+                    xmlns:saleView="clr-namespace:Store_Management.Views.SaleView"
                     >
 
     <DataTemplate DataType="{x:Type vm:HomeVM}">
@@ -20,8 +22,24 @@
     </DataTemplate>
     <DataTemplate DataType="{x:Type employeeVM:SignupVM}">
         <employeeView:Signup/>
+    </DataTemplate>  
+    <DataTemplate DataType="{x:Type employeeVM:EmployeeDetailsVM}">
+        <employeeView:EmployeeDetails/>
+    </DataTemplate>  
+    <DataTemplate DataType="{x:Type employeeVM:EmployeeListVM}">
+        <employeeView:EmployeeList/>
     </DataTemplate>
     
+    <!--Sale-->
+    <DataTemplate DataType="{x:Type saleVM:CreateSaleVM}">
+        <saleView:CreateSale/>
+    </DataTemplate>
+    <DataTemplate DataType="{x:Type saleVM:CreateSaleItemVM}">
+        <saleView:CreateSaleItem/>
+    </DataTemplate>
+    <DataTemplate DataType="{x:Type saleVM:SaleHistoryVM}">
+        <saleView:SaleHistory/>
+    </DataTemplate>
     <!--Product-->
     <DataTemplate DataType="{x:Type productVM:ListProductVM}">
         <productv:ListProduct/>
@@ -29,9 +47,7 @@
     <DataTemplate DataType="{x:Type productVM:BookDetailVM}">
         <productv:BookDetail/>
     </DataTemplate>
-    <DataTemplate DataType="{x:Type productVM:StationeryDetailVM}">
-        <productv:StationeryDetail/>
-    </DataTemplate>
+
     
 
 </ResourceDictionary>

@@ -14,9 +14,10 @@ namespace Store_Management.ViewModels.EmployeeVM
     {
         EmployeeService EmployeeService { get; set; }
 
-        private Employee.Role RoleToSignUp {  get; }
+        private Employee.Role RoleToSignUp { get; }
 
         private string _fullName;
+        private string _phone;
         private string _email;
         private string _password;
         public string _confirmPassword;
@@ -46,8 +47,10 @@ namespace Store_Management.ViewModels.EmployeeVM
                 _confirmPassword = value; OnPropertyChanged();
             }
         }
+        public string Phone { get => _phone; set => SetProperty(ref _phone, value); }
         #endregion
-        public SignupVM(Employee.Role role= Employee.Role.STAFF)
+
+        public SignupVM(Employee.Role role = Employee.Role.STAFF)
         {
             RoleToSignUp = role;
 
@@ -64,7 +67,7 @@ namespace Store_Management.ViewModels.EmployeeVM
             try
             {
 
-                Employee emp = await EmployeeService.Signup(FullName, Email, Password, ConfirmPassword, RoleToSignUp);
+                Employee emp = await EmployeeService.Signup(FullName, Email, Phone, Password, ConfirmPassword, RoleToSignUp);
                 Notification.Success("Sign up successfully!");
                 StoreSession.Instance.SetActiveEmployee(emp);
 
@@ -88,7 +91,7 @@ namespace Store_Management.ViewModels.EmployeeVM
         }
         public RelayCommand OnPasswordChangedCmd { get; set; }
         public RelayCommand OnConfirmPasswordChangedCmd { get; set; }
-
+        public RelayCommand ToLoginCmd { get; set; } = new(obj => Navigator.INSTANCE.ToLogin());
         public RelayCommand SignUpCmd { get; set; }
     }
 }

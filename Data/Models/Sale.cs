@@ -11,15 +11,14 @@ namespace Store_Management.Data.Models
 {
     public class Sale : EntityBase
     {
-        [Required]
-        public int CustomerId { get; set; }
+        public int? CustomerId { get; set; }
         [Required]
         public int EmployeeId { get; set; }
 
         public Customer? Customer { get; set; }
         public Employee? Employee { get; set; }
 
-        public List<SaleDetail>? SaleDetails {  get; set; }
+        public List<SaleItem>? SaleDetails {  get; set; }
 
         [Column(TypeName ="decimal(20,0)")]
         public Decimal TotalPrice {  get; set; }

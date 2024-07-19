@@ -5,17 +5,22 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:Store_Management.Views.Product" xmlns:productvm="clr-namespace:Store_Management.ViewModels.ProductVM" d:DataContext="{d:DesignInstance Type=productvm:BookDetailVM}"
              mc:Ignorable="d" 
-             d:DesignHeight="450" d:DesignWidth="800"
+             d:DesignHeight="950" d:DesignWidth="800"
              d:Background="White"
+              xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes" 
              >
     <ScrollViewer>
 
         <Grid Margin="20">
 
             <StackPanel Grid.Row="2" Grid.Column="1" Margin="5">
-                <Label>Book details</Label>
+                <Label FontSize="18" FontWeight="Bold">Book details</Label>
                 <!-- Image -->
-                <Image Source="{Binding ImageUrl}" Grid.Row="2" Grid.Column="0" Grid.RowSpan="4" Width="100" Height="150" Margin="5"/>
+                <Image Source="{Binding ImageUrl}" Grid.Row="2" Grid.Column="0" Grid.RowSpan="4" Width="250" Height="250" Margin="5"/>
+                <Button materialDesign:ButtonAssist.CornerRadius="5" Width="200" Content="Select File" Command="{Binding SelectFileCommand}"/>
+
+
+
                 <!-- Title -->
                 <TextBlock Text="Title:" Grid.Row="0" Grid.Column="0" VerticalAlignment="Center" Margin="5"/>
                 <TextBox  Text="{Binding Title, Mode=TwoWay}" Grid.Row="0" Grid.Column="1" Margin="5"/>
@@ -35,21 +40,66 @@
                 <TextBlock Text="Publication Year:" VerticalAlignment="Center" Margin="5"/>
                 <TextBox  Text="{Binding PublicationYear, Mode=TwoWay}" Margin="5"/>
 
-                <!-- Author ID -->
-                <TextBlock Text="Author ID:" VerticalAlignment="Center" Margin="5"/>
-                <TextBox  Text="{Binding AuthorId, Mode=TwoWay}" Margin="5"/>
+                <!-- Author  -->
+                <TextBlock Text="Author:" VerticalAlignment="Center" Margin="5"/>
+                <ComboBox
+                    DisplayMemberPath="Name"
+                    HorizontalAlignment="Left"
+                      Width="256"
+                      materialDesign:HintAssist.Hint="-- Select Author --"
+                      materialDesign:TextFieldAssist.HasClearButton="True"
+                      IsEditable="True"
+                    SelectedValuePath="Id"
+                    SelectedValue="{Binding AuthorId}"
+                      ItemsSource="{Binding Authors}"
+                      Style="{StaticResource MaterialDesignFilledComboBox}"
+                     >
+                          
+                </ComboBox>
 
-                <!-- Publisher ID -->
-                <TextBlock Text="Publisher ID:" VerticalAlignment="Center" Margin="5"/>
-                <TextBox  Text="{Binding PublisherId, Mode=TwoWay}" Margin="5"/>
+                <!-- Publisher  -->
+                <TextBlock Text="Publisher:" VerticalAlignment="Center" Margin="5"/>
 
+                <ComboBox 
+                    materialDesign:HintAssist.Hint="  -- Select --"
+                    SelectedValuePath="Id" 
+                    SelectedValue="{Binding PublisherId}"
+                    ItemsSource="{Binding Publishers}" 
+                    DisplayMemberPath="Name">
+
+                </ComboBox>
                 <!-- Category ID -->
-                <TextBlock Text="Category ID:" VerticalAlignment="Center" Margin="5"/>
-                <TextBox  Text="{Binding CategoryId, Mode=TwoWay}" Margin="5"/>
+                <TextBlock Text="Categories:" VerticalAlignment="Center" Margin="5"/>
 
+                <ComboBox 
+                        DisplayMemberPath="Name"
+                         materialDesign:HintAssist.Hint="  -- Select --"
+                          SelectedValuePath="Id"
+                          SelectedValue="{Binding CategoryId}"
+                          ItemsSource="{Binding Categories}">
+
+                </ComboBox>
+
+
+                <!--Number of page-->
+                <TextBlock Text="Number of pages:" VerticalAlignment="Center" Margin="5"/>
+                <TextBox Text="{Binding NumOfPage}"/>
+
+                <!--Book size-->
+                <TextBlock Text="Book size:" VerticalAlignment="Center" Margin="5"/>
+                <StackPanel Orientation="Horizontal">
+                    <TextBox Width="200" Text="{Binding NumOfPage}"/>
+                    <TextBlock VerticalAlignment="Center" Text="cm"/>
+
+                </StackPanel>
+                
+                <!--In stock-->
+                <TextBlock Text="In stock: " VerticalAlignment="Center" Margin="5"/>
+                <TextBox Text="{Binding Stock}"/>
                 <!-- Active Status -->
                 <CheckBox Content="Is Active" IsChecked="{Binding IsActive, Mode=TwoWay}" Margin="5"/>
-                <Button Command="{Binding UpdateBookCommand}">Save change</Button>
+                <Button Visibility="{Binding IsUpdate, Converter={StaticResource BooleanToVisibilityConverter}}" Command="{Binding UpdateBookCommand}">Update book</Button>
+                <Button Visibility="{Binding IsAdd, Converter={StaticResource BooleanToVisibilityConverter}}" Command="{Binding AddBookCommand}">Add book</Button>
             </StackPanel>
 
 

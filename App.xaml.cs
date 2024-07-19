@@ -2,9 +2,10 @@
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Store_Management.Data;
+using Store_Management.Services;
 using Store_Management.Utils;
 using Store_Management.ViewModels.EmployeeVM;
-using Store_Management.Views.Employee;
+using Store_Management.Views.EmployeeView;
 using System.Configuration;
 using System.Data;
 using System.Diagnostics;
@@ -42,17 +43,18 @@ namespace Store_Management
                 options.UseSqlServer(_configuration.GetConnectionString("StoreDbContext"));
                 options.LogTo((msg) => Debug.WriteLine(msg));
             });
-            services.AddTransient(typeof(UnitOfWork));
-            services.AddTransient(typeof(IRepository<>), typeof(Repository<>));
+           
 
         }
         protected override void OnStartup(StartupEventArgs e)
         {
             Navigator.CreateInstance();
-            Navigator.INSTANCE.OpenEmployeeStartWindow();
-            
+            //navigator.instance.openemployeestartwindow();
+            StoreSession.Instance.ActiveEmployee = new StoreDbContext().Employees.Find(1);
+            Navigator.INSTANCE.OpenStoreMainWindow();
+
         }
-       
+
     }
 
 }

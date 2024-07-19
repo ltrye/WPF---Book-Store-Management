@@ -69,7 +69,7 @@ namespace Store_Management.ViewModels.EmployeeVM
 
         public RelayCommand OnPasswordChangedCmd {  get; set; }
         public RelayCommand LoginCommand { get; set; }
-        public RelayCommand ToSignUp { get; set; } = RelayCommand.From((obj) => Navigator.INSTANCE.OpenDialog(new SignupVM()));
+        public RelayCommand ToSignUp { get; set; } = new RelayCommand((obj) => Navigator.INSTANCE.ToSignUp());
         public RelayCommand ToForgotPassword { get; set; } = RelayCommand.From((obj) => Navigator.INSTANCE.OpenDialog(new SignupVM()));
 
     }

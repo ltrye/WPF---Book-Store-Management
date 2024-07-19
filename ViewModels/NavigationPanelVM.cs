@@ -8,12 +8,15 @@ using System.Collections.ObjectModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows;
 
 namespace Store_Management.ViewModels
 {
     public class NavigationPanelVM : NavigatableViewModel
     {
+        
 
+        private Navigator Navigator {  get; }
         private Employee _currentEmployee;
         public string StoreName { get; set; } = "LTH Book Store";
 
@@ -33,22 +36,49 @@ namespace Store_Management.ViewModels
 
         public NavigationPanelVM()
         {
-            Navigator.INSTANCE.RegisterNavigationViewModel(this);
-
+            Navigator = Navigator.INSTANCE;
+            Navigator.RegisterNavigationViewModel(this);
 
             NavigationItems = new ObservableCollection<NavigationItem>
             {
-                new("Home", new HomeVM(), isActive: true),
-                new("Products Management", new ListProductVM())
+                new("Home", (obj) => Navigator.ToHome(), isActive: true),
+                new("Create transaction", (obj) => Navigator.ToCreateTransaction()),
+                new("Products Management", (obj) => Navigator.ToProductList()),
+                new("Transaction history", (obj) => Navigator.ToSaleHistory()),
+                new("Work Management", (obj) => Navigator.ToProductList()),
+                new("Employess Management", (obj) => Navigator.ToEmployeeList()),
+                new("Profile", (obj) => Navigator.ToEmployeeProfile(StoreSession.Instance.ActiveEmployee.Id)),
             };
 
             //Employee
             CurrentEmployee = StoreSession.Instance.ActiveEmployee;
 
-            //Inital page
-            CurrentPage = new HomeVM();
-        }
+            //if(CurrentEmployee.RoleId == (int)Employee.Role.STAFF) {
+            //    NavigationItems.Remo NavigationItems.Where(i => true);
+            //}
+            //Command
+            LogoutCommand = new(obj => Logout());
 
+
+
+            if (CurrentEmployee.IsActive == false)
+            {
+                Notification.Info("Your account is not activated. Please provide all details and contact the admin");
+                Navigator.INSTANCE.ToEmployeeProfile(CurrentEmployee.Id);
+                return;
+            }
+
+            //Inital page
+            Navigator.ToHome();
+
+            
+        }
+        private void Logout()
+        {
+            StoreSession.Instance.ActiveEmployee = null;
+            Navigator.INSTANCE.OpenEmployeeStartWindow(Navigator.OpenAction.CLOSE_CURRENT);
+        }
+        public RelayCommand LogoutCommand { get; set; }
 
     }
 
@@ -56,10 +86,10 @@ namespace Store_Management.ViewModels
 
     public struct NavigationItem
     {
-        public NavigationItem(string name, ViewModelBase viewModel, bool isActive = false)
+        public NavigationItem(string name, Action<object?> navigateAction, bool isActive = false)
         {
             this.Name = name;
-            this.Command = new RelayCommand((obj) => Navigator.INSTANCE.NavigateTo(viewModel));
+            this.Command = new RelayCommand(navigateAction);
             this.IsActive = isActive;
         }
         public bool IsActive {  get; set; }

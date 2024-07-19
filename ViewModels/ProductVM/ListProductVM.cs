@@ -14,26 +14,26 @@ namespace Store_Management.ViewModels.ProductVM
     public class ListProductVM : ViewModelBase
     {
         private Navigator Navigator { get; }
-        private ProductService _productService;
+
         private BookService BookService;
+        private PublisherService PublisherService;
 
-        private ObservableCollection<Product> _products;
+        private Book _selectedBook;
         private ObservableCollection<Book> _books;
+        private ObservableCollection<Publisher> _publisher;
 
-        private Product _selectedProduct;
 
-        
+
+
         #region Properties
-        public Product SelectedProduct
+
+        public ObservableCollection<Publisher> Publishers { get => _publisher; set => SetProperty(ref _publisher, value); }
+        public Book SelectedBook
         {
-            get { return _selectedProduct; }
-            set { _selectedProduct = value; OnPropertyChanged(); }
+            get { return _selectedBook; }
+            set { _selectedBook = value; OnPropertyChanged(); }
         }
-        public ObservableCollection<Product> Products
-        {
-            get { return _products; }
-            set { _products = value; OnPropertyChanged(); }
-        }
+
         public ObservableCollection<Book> Books { get => _books; set => SetProperty(ref _books, value); }
 
         #endregion
@@ -42,9 +42,12 @@ namespace Store_Management.ViewModels.ProductVM
         {
             Navigator = Navigator.INSTANCE;
             BookService = new BookService();
-            _productService = new ProductService();
-            ShowProductDetailsCommand = new RelayCommand(async (obj) => await ShowProductDetails(), (obj) => SelectedProduct != null);
+            PublisherService = new PublisherService();
+
+
+            ShowProductDetailsCommand = new RelayCommand(async (obj) => await ShowProductDetails(), (obj) => SelectedBook != null);
             GoToAddBookCmd = new RelayCommand(obj => GoToAddBook());
+            SearchBookCommand = new(SearchBook);
 
             //Init
             Task t = Init();
@@ -53,39 +56,43 @@ namespace Store_Management.ViewModels.ProductVM
         public async Task Init()
         {
             await LoadDataList();
+            this.Publishers = new ObservableCollection<Publisher>(await PublisherService.GetAll());
         }
 
-        public async Task LoadDataList()
+        public async Task LoadDataList(List<Book>? books = null)
         {
-            var productsList = await BookService.FindAllBook();
-            Products = new ObservableCollection<Product>(productsList);
+            if (books == null)
+            {
+
+                books = await BookService.FindAllBook();
+            }
+            Books = new ObservableCollection<Book>(books);
         }
 
         public async Task ShowProductDetails()
         {
             //Navigator.INSTANCE.NavigateTo(new ProductDetailVM(SelectedProduct.Id));
-            if (SelectedProduct is Book book)
-            {
-                Navigator.ToUpdateBook(book.Id);
 
-            }
-            else if (SelectedProduct is Stationery)
-            {
-                Navigator.INSTANCE.OpenDialog(new StationeryDetailVM(SelectedProduct.Id));
-            }
-            await LoadDataList();
+            Navigator.ToUpdateBook(SelectedBook.Id, async bookId => await LoadDataList());
 
         }
+
 
         public async void GoToAddBook()
         {
-            Navigator.ToAddBook();
-            await LoadDataList();
+            Navigator.ToAddBook(async bookId => await LoadDataList());
+        }
+
+        public async void SearchBook(object? searchInput)
+        {
+            string? keyword = searchInput as string;
+            if (keyword == null) return;
+            var books = await BookService.SearchBooks(keyword);
+            await LoadDataList(books);
         }
 
 
-
-
+        public RelayCommand SearchBookCommand { get; set; }
         public RelayCommand ShowProductDetailsCommand { get; set; }
         public RelayCommand GoToAddBookCmd { get; set; }
 

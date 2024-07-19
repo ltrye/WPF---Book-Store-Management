@@ -23,5 +23,7 @@ namespace Store_Management.Data.Models
         public int? UpdatedBy { get; set; }
 
         public DateTime? UpdatedDate { get; set; }
+
+    
     }
 }

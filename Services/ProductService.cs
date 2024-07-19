@@ -25,25 +25,15 @@ namespace Store_Management.Services
             _context = new StoreDbContext();
 
         }
-        public async Task<List<Product>> GetListOfProducts()
-        {
-            var products = await _context.Products.Include(p => p.Category).ToListAsync();
-
-            return products;
-        }
+    
 
         public async Task<List<Book>> GetAllBooks()
         {
-            var products = await _context.Books.Include(p => p.Category).ToListAsync();
+            var products = await _context.Books.ToListAsync();
             return products;
         }
 
 
-        public async Task<Product> FindById(int id)
-        {
-            var product = await _context.Products.Include(p => p.Category).Where(p => p.Id == id).FirstOrDefaultAsync();
-            return product;
-        }
 
         public async Task AddBook(Book book)
         {
@@ -69,34 +59,8 @@ namespace Store_Management.Services
             }
             return true;
         }
-        public async Task<bool> UpdateStationeryById(Stationery product)
-        {
-            try
-            {
 
-                _context.Stationeries.Update(product);
-                await _context.SaveChangesAsync();
-            }
-            catch (Exception ex)
-            {
-                return false;
-            }
-            return true;
-        }
 
-        public async Task DeleteProductById(int id)
-        {
-            var product = await _context.Products.FindAsync(id);
-            if (product != null)
-            {
-                product.IsActive = false;
-                await _context.SaveChangesAsync();
-            }
-            else
-            {
-                throw new Exception($"Product with ID {id} not found.");
-            }
 
-        }
     }
 }

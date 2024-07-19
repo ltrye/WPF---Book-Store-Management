@@ -20,7 +20,7 @@ namespace Store_Management.Utils
             }
         }
 
-        public Employee ActiveEmployee { get; set; }
+        public Employee? ActiveEmployee { get; set; }
 
         public StoreSession() { }
 

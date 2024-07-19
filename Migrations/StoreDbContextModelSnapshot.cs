@@ -36,6 +36,9 @@ namespace Store_Management.Migrations
                     b.Property<DateTime>("CreatedDate")
                         .HasColumnType("datetime2");
 
+                    b.Property<string>("Description")
+                        .HasColumnType("nvarchar(max)");
+
                     b.Property<bool>("IsActive")
                         .HasColumnType("bit");
 
@@ -57,14 +60,78 @@ namespace Store_Management.Migrations
                         new
                         {
                             Id = 1,
-                            CreatedBy = 1,
-                            CreatedDate = new DateTime(2024, 7, 14, 15, 20, 3, 253, DateTimeKind.Local).AddTicks(3642),
+                            CreatedBy = 0,
+                            CreatedDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            Description = "Popular contemporary novelist and screenwriter.",
                             IsActive = false,
-                            Name = "Le Trung Ha"
+                            Name = "Nguyễn Nhật Ánh"
+                        },
+                        new
+                        {
+                            Id = 2,
+                            CreatedBy = 0,
+                            CreatedDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            Description = "Acclaimed poet and author of modern Vietnamese literature.",
+                            IsActive = false,
+                            Name = "Nguyễn Hồng"
+                        },
+                        new
+                        {
+                            Id = 3,
+                            CreatedBy = 0,
+                            CreatedDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            Description = "Novelist known for exploring social issues in Vietnam.",
+                            IsActive = false,
+                            Name = "Nguyễn Thành Long"
+                        },
+                        new
+                        {
+                            Id = 4,
+                            CreatedBy = 0,
+                            CreatedDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            Description = "Award-winning author of novels and poetry, focusing on Vietnamese history and culture.",
+                            IsActive = false,
+                            Name = "Nguyễn Phan Quế Mai"
+                        },
+                        new
+                        {
+                            Id = 5,
+                            CreatedBy = 0,
+                            CreatedDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            Description = "Young novelist and short story writer known for contemporary themes.",
+                            IsActive = false,
+                            Name = "Lê Minh Khuê"
+                        },
+                        new
+                        {
+                            Id = 6,
+                            CreatedBy = 0,
+                            CreatedDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            Description = "Modern poet and essayist exploring existential and philosophical themes.",
+                            IsActive = false,
+                            Name = "Bùi Anh Tấn"
+                        },
+                        new
+                        {
+                            Id = 7,
+                            CreatedBy = 0,
+                            CreatedDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            Description = "Contemporary writer of short stories and novels reflecting on urban life.",
+                            IsActive = false,
+                            Name = "Phan Hồn Nhân"
+                        },
+                        new
+                        {
+                            Id = 8,
+                            CreatedBy = 0,
+                            CreatedDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            Description = "Novelist and playwright known for feminist themes in Vietnamese literature.",
+                            IsActive = false,
+                            Name = "Trịnh Bích Ngân"
                         });
                 });
 
-            modelBuilder.Entity("Store_Management.Data.Models.Brand", b =>
+            modelBuilder.Entity("Store_Management.Data.Models.Book", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -72,11 +139,32 @@ namespace Store_Management.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
+                    b.Property<int>("AuthorId")
+                        .HasColumnType("int");
+
+                    b.Property<string>("BookSize")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int>("CategoryId")
+                        .HasColumnType("int");
+
                     b.Property<int>("CreatedBy")
                         .HasColumnType("int");
 
                     b.Property<DateTime>("CreatedDate")
                         .HasColumnType("datetime2");
+
+                    b.Property<string>("Description")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("ISBN")
+                        .IsRequired()
+                        .HasMaxLength(20)
+                        .HasColumnType("nvarchar(20)");
+
+                    b.Property<string>("ImageUrl")
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<bool>("IsActive")
                         .HasColumnType("bit");
@@ -84,6 +172,21 @@ namespace Store_Management.Migrations
                     b.Property<string>("Name")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
+
+                    b.Property<int>("NumberOfPage")
+                        .HasColumnType("int");
+
+                    b.Property<decimal>("Price")
+                        .HasColumnType("decimal(20,0)");
+
+                    b.Property<int>("PublicationYear")
+                        .HasColumnType("int");
+
+                    b.Property<int>("PublisherId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("Stock")
+                        .HasColumnType("int");
 
                     b.Property<int?>("UpdatedBy")
                         .HasColumnType("int");
@@ -93,17 +196,67 @@ namespace Store_Management.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Brands");
+                    b.HasIndex("AuthorId");
+
+                    b.HasIndex("CategoryId");
+
+                    b.HasIndex("PublisherId");
+
+                    b.ToTable("Books");
 
                     b.HasData(
                         new
                         {
                             Id = 1,
+                            AuthorId = 1,
+                            BookSize = "15.9 x 1.3 x 22.2",
+                            CategoryId = 1,
                             CreatedBy = 1,
-                            CreatedDate = new DateTime(2024, 7, 14, 15, 20, 3, 253, DateTimeKind.Local).AddTicks(3628),
+                            CreatedDate = new DateTime(2024, 7, 18, 23, 2, 13, 636, DateTimeKind.Local).AddTicks(44),
+                            Description = "Classic novel by F. Scott Fitzgerald",
+                            ISBN = "BK235",
+                            ImageUrl = "the_great_gatsby.jpg",
                             IsActive = true,
-                            Name = "LTCompany"
+                            Name = "The Great Gatsby",
+                            NumberOfPage = 30,
+                            Price = 10.99m,
+                            PublicationYear = 2025,
+                            PublisherId = 1,
+                            Stock = 50
+                        },
+                        new
+                        {
+                            Id = 2,
+                            AuthorId = 1,
+                            BookSize = "15.9 x 1.3 x 22.2",
+                            CategoryId = 1,
+                            CreatedBy = 1,
+                            CreatedDate = new DateTime(2024, 7, 18, 23, 2, 13, 636, DateTimeKind.Local).AddTicks(47),
+                            Description = "Dystopian novel by George Orwell",
+                            ISBN = "BK235",
+                            ImageUrl = "1984.jpg",
+                            IsActive = true,
+                            Name = "1984",
+                            NumberOfPage = 30,
+                            Price = 10.99m,
+                            PublicationYear = 2025,
+                            PublisherId = 1,
+                            Stock = 50
                         });
+                });
+
+            modelBuilder.Entity("Store_Management.Data.Models.BookSerialNumber", b =>
+                {
+                    b.Property<int>("BookId")
+                        .HasColumnType("int");
+
+                    b.Property<string>("SerialNumber")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("BookId");
+
+                    b.ToTable("BookSerialNumber");
                 });
 
             modelBuilder.Entity("Store_Management.Data.Models.Category", b =>
@@ -149,7 +302,7 @@ namespace Store_Management.Migrations
                             CreatedBy = 0,
                             CreatedDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             IsActive = false,
-                            Name = "Books"
+                            Name = "English Book"
                         },
                         new
                         {
@@ -157,7 +310,7 @@ namespace Store_Management.Migrations
                             CreatedBy = 0,
                             CreatedDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             IsActive = false,
-                            Name = "Stationery"
+                            Name = "Programming"
                         },
                         new
                         {
@@ -165,7 +318,128 @@ namespace Store_Management.Migrations
                             CreatedBy = 0,
                             CreatedDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             IsActive = false,
-                            Name = "Office Supplies"
+                            Name = "Science Fiction"
+                        },
+                        new
+                        {
+                            Id = 4,
+                            CreatedBy = 0,
+                            CreatedDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            IsActive = false,
+                            Name = "Fantasy"
+                        },
+                        new
+                        {
+                            Id = 5,
+                            CreatedBy = 0,
+                            CreatedDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            IsActive = false,
+                            Name = "Mystery"
+                        },
+                        new
+                        {
+                            Id = 6,
+                            CreatedBy = 0,
+                            CreatedDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            IsActive = false,
+                            Name = "Biography"
+                        },
+                        new
+                        {
+                            Id = 7,
+                            CreatedBy = 0,
+                            CreatedDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            IsActive = false,
+                            Name = "History"
+                        },
+                        new
+                        {
+                            Id = 8,
+                            CreatedBy = 0,
+                            CreatedDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            IsActive = false,
+                            Name = "Art"
+                        },
+                        new
+                        {
+                            Id = 9,
+                            CreatedBy = 0,
+                            CreatedDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            IsActive = false,
+                            Name = "Java",
+                            ParentId = 2
+                        },
+                        new
+                        {
+                            Id = 10,
+                            CreatedBy = 0,
+                            CreatedDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            IsActive = false,
+                            Name = "C#",
+                            ParentId = 2
+                        },
+                        new
+                        {
+                            Id = 11,
+                            CreatedBy = 0,
+                            CreatedDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            IsActive = false,
+                            Name = "Python",
+                            ParentId = 2
+                        },
+                        new
+                        {
+                            Id = 12,
+                            CreatedBy = 0,
+                            CreatedDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            IsActive = false,
+                            Name = "Space Opera",
+                            ParentId = 3
+                        },
+                        new
+                        {
+                            Id = 13,
+                            CreatedBy = 0,
+                            CreatedDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            IsActive = false,
+                            Name = "High Fantasy",
+                            ParentId = 4
+                        },
+                        new
+                        {
+                            Id = 14,
+                            CreatedBy = 0,
+                            CreatedDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            IsActive = false,
+                            Name = "Detective",
+                            ParentId = 5
+                        },
+                        new
+                        {
+                            Id = 15,
+                            CreatedBy = 0,
+                            CreatedDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            IsActive = false,
+                            Name = "Autobiography",
+                            ParentId = 6
+                        },
+                        new
+                        {
+                            Id = 16,
+                            CreatedBy = 0,
+                            CreatedDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            IsActive = false,
+                            Name = "World War II",
+                            ParentId = 7
+                        },
+                        new
+                        {
+                            Id = 17,
+                            CreatedBy = 0,
+                            CreatedDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            IsActive = false,
+                            Name = "Painting",
+                            ParentId = 8
                         });
                 });
 
@@ -218,11 +492,10 @@ namespace Store_Management.Migrations
                     b.Property<string>("Address")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<int>("Age")
+                    b.Property<int?>("Age")
                         .HasColumnType("int");
 
                     b.Property<string>("CitizenId")
-                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<int>("CreatedBy")
@@ -243,6 +516,10 @@ namespace Store_Management.Migrations
                         .HasColumnType("bit");
 
                     b.Property<string>("Password")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("PhoneNumber")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
@@ -270,13 +547,54 @@ namespace Store_Management.Migrations
                             Age = 30,
                             CitizenId = "0049393859",
                             CreatedBy = 1,
-                            CreatedDate = new DateTime(2024, 7, 14, 15, 20, 3, 253, DateTimeKind.Local).AddTicks(3542),
+                            CreatedDate = new DateTime(2024, 7, 18, 23, 2, 13, 635, DateTimeKind.Local).AddTicks(9935),
                             Email = "admin@gmail.com",
                             FullName = "Le Trung Ha",
                             IsActive = true,
                             Password = "AQAAAAEAACcQAAAAELkmiywABvS7CuDMOizvFZAcM0PFm41LpVWfrviktituMRaltQuJab+Nvm4fu84AKQ==",
-                            RoleId = 0
+                            PhoneNumber = "094859404",
+                            RoleId = 1
                         });
+                });
+
+            modelBuilder.Entity("Store_Management.Data.Models.EmployeePaymentRecord", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<int>("CreatedBy")
+                        .HasColumnType("int");
+
+                    b.Property<DateTime>("CreatedDate")
+                        .HasColumnType("datetime2");
+
+                    b.Property<int>("EmployeeId")
+                        .HasColumnType("int");
+
+                    b.Property<bool>("IsActive")
+                        .HasColumnType("bit");
+
+                    b.Property<int>("Month")
+                        .HasColumnType("int");
+
+                    b.Property<int>("Status")
+                        .HasColumnType("int");
+
+                    b.Property<int?>("UpdatedBy")
+                        .HasColumnType("int");
+
+                    b.Property<DateTime?>("UpdatedDate")
+                        .HasColumnType("datetime2");
+
+                    b.Property<int>("Year")
+                        .HasColumnType("int");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("EmployeePaymentRecord");
                 });
 
             modelBuilder.Entity("Store_Management.Data.Models.KPIRecord", b =>
@@ -324,55 +642,6 @@ namespace Store_Management.Migrations
                     b.ToTable("KPIRecords");
                 });
 
-            modelBuilder.Entity("Store_Management.Data.Models.Product", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
-
-                    b.Property<int>("CategoryId")
-                        .HasColumnType("int");
-
-                    b.Property<int>("CreatedBy")
-                        .HasColumnType("int");
-
-                    b.Property<DateTime>("CreatedDate")
-                        .HasColumnType("datetime2");
-
-                    b.Property<string>("Description")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("ImageUrl")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<bool>("IsActive")
-                        .HasColumnType("bit");
-
-                    b.Property<string>("Name")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<decimal>("Price")
-                        .HasColumnType("decimal(20,0)");
-
-                    b.Property<int?>("UpdatedBy")
-                        .HasColumnType("int");
-
-                    b.Property<DateTime?>("UpdatedDate")
-                        .HasColumnType("datetime2");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("CategoryId");
-
-                    b.ToTable("Products");
-
-                    b.UseTptMappingStrategy();
-                });
-
             modelBuilder.Entity("Store_Management.Data.Models.Publisher", b =>
                 {
                     b.Property<int>("Id")
@@ -409,9 +678,41 @@ namespace Store_Management.Migrations
                         {
                             Id = 1,
                             CreatedBy = 1,
-                            CreatedDate = new DateTime(2024, 7, 14, 15, 20, 3, 253, DateTimeKind.Local).AddTicks(3657),
+                            CreatedDate = new DateTime(2024, 7, 18, 23, 2, 13, 635, DateTimeKind.Local).AddTicks(9971),
                             IsActive = false,
-                            Name = "NXB Kim Dong"
+                            Name = "NXB Kim Đồng"
+                        },
+                        new
+                        {
+                            Id = 2,
+                            CreatedBy = 1,
+                            CreatedDate = new DateTime(2024, 7, 18, 23, 2, 13, 635, DateTimeKind.Local).AddTicks(9973),
+                            IsActive = false,
+                            Name = "NXB Giáo Dục"
+                        },
+                        new
+                        {
+                            Id = 3,
+                            CreatedBy = 1,
+                            CreatedDate = new DateTime(2024, 7, 18, 23, 2, 13, 635, DateTimeKind.Local).AddTicks(9974),
+                            IsActive = false,
+                            Name = "NXB Trẻ"
+                        },
+                        new
+                        {
+                            Id = 4,
+                            CreatedBy = 1,
+                            CreatedDate = new DateTime(2024, 7, 18, 23, 2, 13, 635, DateTimeKind.Local).AddTicks(9975),
+                            IsActive = false,
+                            Name = "NXB Hội Nhà Văn"
+                        },
+                        new
+                        {
+                            Id = 5,
+                            CreatedBy = 1,
+                            CreatedDate = new DateTime(2024, 7, 18, 23, 2, 13, 635, DateTimeKind.Local).AddTicks(9976),
+                            IsActive = false,
+                            Name = "NXB Văn Học"
                         });
                 });
 
@@ -429,7 +730,7 @@ namespace Store_Management.Migrations
                     b.Property<DateTime>("CreatedDate")
                         .HasColumnType("datetime2");
 
-                    b.Property<int>("CustomerId")
+                    b.Property<int?>("CustomerId")
                         .HasColumnType("int");
 
                     b.Property<int>("EmployeeId")
@@ -456,13 +757,16 @@ namespace Store_Management.Migrations
                     b.ToTable("Sales");
                 });
 
-            modelBuilder.Entity("Store_Management.Data.Models.SaleDetail", b =>
+            modelBuilder.Entity("Store_Management.Data.Models.SaleItem", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int");
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<int>("BookId")
+                        .HasColumnType("int");
 
                     b.Property<int>("CreatedBy")
                         .HasColumnType("int");
@@ -472,9 +776,6 @@ namespace Store_Management.Migrations
 
                     b.Property<bool>("IsActive")
                         .HasColumnType("bit");
-
-                    b.Property<int>("ProductId")
-                        .HasColumnType("int");
 
                     b.Property<int>("SaleId")
                         .HasColumnType("int");
@@ -490,188 +791,49 @@ namespace Store_Management.Migrations
 
                     b.HasKey("Id");
 
-                    b.HasIndex("ProductId");
+                    b.HasIndex("BookId");
 
                     b.HasIndex("SaleId");
 
-                    b.ToTable("SaleDetails");
+                    b.ToTable("SaleItem");
                 });
 
             modelBuilder.Entity("Store_Management.Data.Models.Book", b =>
                 {
-                    b.HasBaseType("Store_Management.Data.Models.Product");
+                    b.HasOne("Store_Management.Data.Models.Author", "Author")
+                        .WithMany()
+                        .HasForeignKey("AuthorId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
 
-                    b.Property<int>("AuthorId")
-                        .HasColumnType("int");
+                    b.HasOne("Store_Management.Data.Models.Category", "Category")
+                        .WithMany()
+                        .HasForeignKey("CategoryId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
 
-                    b.Property<string>("ISBN")
-                        .IsRequired()
-                        .HasMaxLength(20)
-                        .HasColumnType("nvarchar(20)");
+                    b.HasOne("Store_Management.Data.Models.Publisher", "Publisher")
+                        .WithMany()
+                        .HasForeignKey("PublisherId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
 
-                    b.Property<int>("PublicationYear")
-                        .HasColumnType("int");
+                    b.Navigation("Author");
 
-                    b.Property<int>("PublisherId")
-                        .HasColumnType("int");
+                    b.Navigation("Category");
 
-                    b.HasIndex("AuthorId");
-
-                    b.HasIndex("PublisherId");
-
-                    b.ToTable("Books", (string)null);
-
-                    b.HasData(
-                        new
-                        {
-                            Id = 1,
-                            CategoryId = 1,
-                            CreatedBy = 1,
-                            CreatedDate = new DateTime(2024, 7, 14, 15, 20, 3, 253, DateTimeKind.Local).AddTicks(3683),
-                            Description = "Classic novel by F. Scott Fitzgerald",
-                            ImageUrl = "the_great_gatsby.jpg",
-                            IsActive = true,
-                            Name = "The Great Gatsby",
-                            Price = 10.99m,
-                            AuthorId = 1,
-                            ISBN = "BK235",
-                            PublicationYear = 2025,
-                            PublisherId = 1
-                        },
-                        new
-                        {
-                            Id = 2,
-                            CategoryId = 1,
-                            CreatedBy = 1,
-                            CreatedDate = new DateTime(2024, 7, 14, 15, 20, 3, 253, DateTimeKind.Local).AddTicks(3686),
-                            Description = "Dystopian novel by George Orwell",
-                            ImageUrl = "1984.jpg",
-                            IsActive = true,
-                            Name = "1984",
-                            Price = 10.99m,
-                            AuthorId = 1,
-                            ISBN = "BK235",
-                            PublicationYear = 2025,
-                            PublisherId = 1
-                        });
+                    b.Navigation("Publisher");
                 });
 
-            modelBuilder.Entity("Store_Management.Data.Models.Stationery", b =>
+            modelBuilder.Entity("Store_Management.Data.Models.BookSerialNumber", b =>
                 {
-                    b.HasBaseType("Store_Management.Data.Models.Product");
+                    b.HasOne("Store_Management.Data.Models.Book", "Book")
+                        .WithMany()
+                        .HasForeignKey("BookId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
 
-                    b.Property<int>("BrandId")
-                        .HasColumnType("int");
-
-                    b.HasIndex("BrandId");
-
-                    b.ToTable("Stationeries", (string)null);
-
-                    b.HasData(
-                        new
-                        {
-                            Id = 3,
-                            CategoryId = 1,
-                            CreatedBy = 1,
-                            CreatedDate = new DateTime(2024, 7, 14, 15, 20, 3, 253, DateTimeKind.Local).AddTicks(3702),
-                            Description = "Novel by Harper Lee",
-                            ImageUrl = "to_kill_a_mockingbird.jpg",
-                            IsActive = true,
-                            Name = "To Kill a Mockingbird",
-                            Price = 7.99m,
-                            BrandId = 1
-                        },
-                        new
-                        {
-                            Id = 4,
-                            CategoryId = 2,
-                            CreatedBy = 1,
-                            CreatedDate = new DateTime(2024, 7, 14, 15, 20, 3, 253, DateTimeKind.Local).AddTicks(3707),
-                            Description = "100-page A4 notebook",
-                            ImageUrl = "a4_notebook.jpg",
-                            IsActive = true,
-                            Name = "A4 Notebook",
-                            Price = 2.50m,
-                            BrandId = 1
-                        },
-                        new
-                        {
-                            Id = 5,
-                            CategoryId = 2,
-                            CreatedBy = 1,
-                            CreatedDate = new DateTime(2024, 7, 14, 15, 20, 3, 253, DateTimeKind.Local).AddTicks(3709),
-                            Description = "Blue ballpoint pen",
-                            ImageUrl = "ballpoint_pen.jpg",
-                            IsActive = true,
-                            Name = "Ballpoint Pen",
-                            Price = 0.99m,
-                            BrandId = 1
-                        },
-                        new
-                        {
-                            Id = 6,
-                            CategoryId = 2,
-                            CreatedBy = 1,
-                            CreatedDate = new DateTime(2024, 7, 14, 15, 20, 3, 253, DateTimeKind.Local).AddTicks(3712),
-                            Description = "Set of 5 highlighters",
-                            ImageUrl = "highlighter_set.jpg",
-                            IsActive = true,
-                            Name = "Highlighter Set",
-                            Price = 5.49m,
-                            BrandId = 1
-                        },
-                        new
-                        {
-                            Id = 7,
-                            CategoryId = 2,
-                            CreatedBy = 1,
-                            CreatedDate = new DateTime(2024, 7, 14, 15, 20, 3, 253, DateTimeKind.Local).AddTicks(3713),
-                            Description = "Pack of sticky notes",
-                            ImageUrl = "sticky_notes.jpg",
-                            IsActive = true,
-                            Name = "Sticky Notes",
-                            Price = 1.99m,
-                            BrandId = 1
-                        },
-                        new
-                        {
-                            Id = 8,
-                            CategoryId = 3,
-                            CreatedBy = 1,
-                            CreatedDate = new DateTime(2024, 7, 14, 15, 20, 3, 253, DateTimeKind.Local).AddTicks(3716),
-                            Description = "Office desk organizer",
-                            ImageUrl = "desk_organizer.jpg",
-                            IsActive = true,
-                            Name = "Desk Organizer",
-                            Price = 12.99m,
-                            BrandId = 1
-                        },
-                        new
-                        {
-                            Id = 9,
-                            CategoryId = 3,
-                            CreatedBy = 1,
-                            CreatedDate = new DateTime(2024, 7, 14, 15, 20, 3, 253, DateTimeKind.Local).AddTicks(3717),
-                            Description = "Set of 10 file folders",
-                            ImageUrl = "file_folders.jpg",
-                            IsActive = true,
-                            Name = "File Folders",
-                            Price = 9.99m,
-                            BrandId = 1
-                        },
-                        new
-                        {
-                            Id = 10,
-                            CategoryId = 3,
-                            CreatedBy = 1,
-                            CreatedDate = new DateTime(2024, 7, 14, 15, 20, 3, 253, DateTimeKind.Local).AddTicks(3720),
-                            Description = "Ream of A4 printer paper",
-                            ImageUrl = "printer_paper.jpg",
-                            IsActive = true,
-                            Name = "Printer Paper",
-                            Price = 4.99m,
-                            BrandId = 1
-                        });
+                    b.Navigation("Book");
                 });
 
             modelBuilder.Entity("Store_Management.Data.Models.Category", b =>
@@ -695,24 +857,11 @@ namespace Store_Management.Migrations
                     b.Navigation("Employee");
                 });
 
-            modelBuilder.Entity("Store_Management.Data.Models.Product", b =>
-                {
-                    b.HasOne("Store_Management.Data.Models.Category", "Category")
-                        .WithMany()
-                        .HasForeignKey("CategoryId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("Category");
-                });
-
             modelBuilder.Entity("Store_Management.Data.Models.Sale", b =>
                 {
                     b.HasOne("Store_Management.Data.Models.Customer", "Customer")
                         .WithMany()
-                        .HasForeignKey("CustomerId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                        .HasForeignKey("CustomerId");
 
                     b.HasOne("Store_Management.Data.Models.Employee", "Employee")
                         .WithMany()
@@ -725,11 +874,11 @@ namespace Store_Management.Migrations
                     b.Navigation("Employee");
                 });
 
-            modelBuilder.Entity("Store_Management.Data.Models.SaleDetail", b =>
+            modelBuilder.Entity("Store_Management.Data.Models.SaleItem", b =>
                 {
-                    b.HasOne("Store_Management.Data.Models.Product", "Product")
+                    b.HasOne("Store_Management.Data.Models.Book", "Book")
                         .WithMany()
-                        .HasForeignKey("ProductId")
+                        .HasForeignKey("BookId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
@@ -739,51 +888,9 @@ namespace Store_Management.Migrations
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.Navigation("Product");
+                    b.Navigation("Book");
 
                     b.Navigation("Sale");
-                });
-
-            modelBuilder.Entity("Store_Management.Data.Models.Book", b =>
-                {
-                    b.HasOne("Store_Management.Data.Models.Author", "Author")
-                        .WithMany()
-                        .HasForeignKey("AuthorId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.HasOne("Store_Management.Data.Models.Product", null)
-                        .WithOne()
-                        .HasForeignKey("Store_Management.Data.Models.Book", "Id")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.HasOne("Store_Management.Data.Models.Publisher", "Publisher")
-                        .WithMany()
-                        .HasForeignKey("PublisherId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("Author");
-
-                    b.Navigation("Publisher");
-                });
-
-            modelBuilder.Entity("Store_Management.Data.Models.Stationery", b =>
-                {
-                    b.HasOne("Store_Management.Data.Models.Brand", "Brand")
-                        .WithMany()
-                        .HasForeignKey("BrandId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.HasOne("Store_Management.Data.Models.Product", null)
-                        .WithOne()
-                        .HasForeignKey("Store_Management.Data.Models.Stationery", "Id")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("Brand");
                 });
 
             modelBuilder.Entity("Store_Management.Data.Models.Category", b =>

@@ -11,5 +11,6 @@ namespace Store_Management.Data.Models
     {
         [Required]
         public string Name { get; set; } = null!;
+        public string? Description { get; set; } = null!;
     }
 }

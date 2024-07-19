@@ -4,6 +4,7 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:Store_Management.Views.Product"
+             xmlns:i="http://schemas.microsoft.com/xaml/behaviors"
              xmlns:productVM="clr-namespace:Store_Management.ViewModels.ProductVM"
              mc:Ignorable="d" 
              d:Background="White"
@@ -11,44 +12,65 @@
              d:DataContext="{d:DesignInstance Type=productVM:ListProductVM, IsDesignTimeCreatable=False}"
                xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
              >
-    <Grid Margin="0, 15,0,0">
-        <Grid.RowDefinitions>
-            <RowDefinition Height="auto"/>
-            <RowDefinition Height="auto"/>
-            <RowDefinition Height="auto"/>
-        </Grid.RowDefinitions>
+    <ScrollViewer >
+        <Grid Margin="0, 15,0,0">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="auto"/>
+                <RowDefinition Height="auto"/>
+                <RowDefinition Height="auto"/>
+            </Grid.RowDefinitions>
 
-        <DockPanel Margin="20,0,20,0">
+            <DockPanel Margin="20,0,20,0">
 
-            <StackPanel DockPanel.Dock="Left" Orientation="Horizontal">
-                <TextBox Style="{StaticResource MaterialDesignTextBox}"
+                <StackPanel DockPanel.Dock="Left" Orientation="Horizontal">
+                    <TextBox Style="{StaticResource MaterialDesignTextBox}"
                      Width="500"
                      Margin="0 0 10 0"
                      materialDesign:HintAssist.Hint="Search"
-                     VerticalAlignment="Center"/>
-                <Button Style="{StaticResource MaterialDesignRaisedButton}"
+                     VerticalAlignment="Center">
+                        <i:Interaction.Triggers>
+                            <i:EventTrigger EventName="TextChanged">
+                                <i:InvokeCommandAction Command="{Binding SearchBookCommand}"
+                                           CommandParameter="{Binding Text, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type TextBox}}}" />
+                            </i:EventTrigger>
+                        </i:Interaction.Triggers>
+                    </TextBox>
+                            
+                    <Button Style="{StaticResource MaterialDesignRaisedButton}"
                     Content="Search"
                     Width="100"
                     VerticalAlignment="Center"/>
-            </StackPanel>
+                </StackPanel>
 
-            <StackPanel  DockPanel.Dock="Right" HorizontalAlignment="Right"  Orientation="Horizontal" Grid.Column="1">
-                <Button  Command="{Binding ShowProductDetailsCommand}">View Details</Button>
-                <Button  Margin="20,0,0,0" Command="{Binding GoToAddBookCmd}">Add book</Button>
-            </StackPanel>
-        </DockPanel>
-
-
-        <DataGrid Margin="0, 20,0,0" Grid.Row="1" IsReadOnly="True" SelectedItem="{Binding SelectedProduct, Mode=OneWayToSource}" AutoGenerateColumns="False" ItemsSource="{Binding Products}">
-            <DataGrid.Columns>
-                <DataGridTextColumn Header="Id" Binding="{Binding Path=Id}"/>
-                <DataGridTextColumn Header="Product Name" Width="200" Binding="{Binding Path=Name}"/>
-                <DataGridTextColumn Header="Category" Width="100" Binding="{Binding Path=Category.Name}"/>
-                <DataGridTextColumn Header="Price" Binding="{Binding Path=Price}"/>
-                <DataGridTextColumn Header="Added date" Binding="{Binding Path=CreatedDate}"/>
-            </DataGrid.Columns>
-        </DataGrid>
+                <StackPanel  DockPanel.Dock="Right" HorizontalAlignment="Right"  Orientation="Horizontal" Grid.Column="1">
+                    <Button  Command="{Binding ShowProductDetailsCommand}">View Details</Button>
+                    <Button  Margin="20,0,0,0" Command="{Binding GoToAddBookCmd}">Add book</Button>
+                </StackPanel>
+            </DockPanel>
 
 
-    </Grid>
+            <DataGrid Margin="0, 20,0,0" Grid.Row="1"  IsReadOnly="True" SelectedItem="{Binding SelectedBook, Mode=OneWayToSource}" AutoGenerateColumns="False" ItemsSource="{Binding Books}">
+                <DataGrid.Columns>
+
+                    <DataGridTemplateColumn Header="Image">
+                        <DataGridTemplateColumn.CellTemplate>
+                            <DataTemplate>
+                                <Image Source="{Binding ImageUrl}" Width="150" Height="150"/>
+                            </DataTemplate>
+                        </DataGridTemplateColumn.CellTemplate>
+                    </DataGridTemplateColumn>
+                    <DataGridTextColumn Header="Id" Binding="{Binding Path=Id}"/>
+                    <DataGridTextColumn Header="Product Name" Width="200" Binding="{Binding Path=Name}"/>
+                    <DataGridTextColumn Header="Category" Width="150" Binding="{Binding Path=Category.Name}"/>
+                    <DataGridTextColumn Header="Author" Width="150" Binding="{Binding Path=Author.Name}"/>
+                    <DataGridTextColumn Header="Price" Binding="{Binding Path=Price}"/>
+                    <DataGridTextColumn Header="In stock" Binding="{Binding Path=Stock}"/>
+                    <DataGridTextColumn Header="Added date" Binding="{Binding Path=CreatedDate}"/>
+                    <DataGridTextColumn Header="Updated date" Binding="{Binding Path=UpdatedDate}"/>
+                </DataGrid.Columns>
+            </DataGrid>
+
+
+        </Grid>
+    </ScrollViewer>
 </UserControl>
